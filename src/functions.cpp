@@ -72,3 +72,68 @@ const vector<string> functions::split(const string& s, const char& c){
 	
 	return v;
 }
+
+void functions::CreateOutputDir(){
+    DIR* dp = opendir("../Output/");
+
+    if(dp == NULL){
+        system("mkdir ../Output/");
+    }else{
+        system("rm -r -f ../Output/*");
+    }
+}
+
+string functions::ReadFileInput(string file){
+    ifstream fileStream(file, ios::in);
+    
+    string line, content;
+
+    while(!fileStream.eof()){
+        getline(fileStream, line);
+        content += line;
+        content += " ";
+    }
+
+    fileStream.close();
+
+    return content;
+}
+
+result* functions::ConvertStringInputToDoubleResult(string water, string oil){
+    vector<string> waterSplit{split(water, ' ')};
+    vector<string> oilSplit{split(oil, ' ')};
+
+    result* results = new result[water.size()];
+
+    for(int i = 0; i < waterSplit.size(); i++){
+        results[i].water = stod(waterSplit[i]);
+        results[i].oil = stod(oilSplit[i]);
+    }
+
+    return results;
+
+}
+
+const char* functions::Command(string inputCommand){
+    const char* command = (char*) inputCommand.c_str();
+
+    return command;
+}
+
+void functions::CreateResultDir(int idIteration){
+    string command = "../Output/"+to_string(idIteration);
+    const char* file = (char*) command.c_str();
+    DIR* dp = opendir(file);
+
+    if(dp == NULL){
+        const char* mkdirIteration = Command("mkdir ../Output/"+to_string(idIteration));
+        system(mkdirIteration);
+        const char* mkdirWater = Command("mkdir ../Output/"+to_string(idIteration)+"/agua");
+        system(mkdirWater);
+        const char* mkdirOil = Command("mkdir ../Output/"+to_string(idIteration)+"/oleo");
+        system(mkdirOil);
+    }else{
+        const char* rm =Command("rm -f ../Output/0/*");
+        system(rm);
+    }
+}

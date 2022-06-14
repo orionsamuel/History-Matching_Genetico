@@ -18,6 +18,12 @@ class functions{
     double max(double num1, double num2);
     double min(double num1, double num2);
     const vector<string> split(const string& s, const char& c);
+    void CreateOutputDir();
+    string ReadFileInput(string file);
+    result* ConvertStringInputToDoubleResult(string water, string oil);
+    const char* Command(string inputCommand);
+    void CreateResultDir(int idIteration);
+    void WriteSimulationFile(int idIteration);
 
     static bool compare(const individual n, const individual m){
         return n.error_rank < m.error_rank;

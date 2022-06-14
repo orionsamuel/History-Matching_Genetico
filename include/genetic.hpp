@@ -28,11 +28,6 @@ class genetic_algorithm: public functions{
     ~genetic_algorithm();
 
     void Init();
-    void CreateOutputDir();
-    string ReadFileInput(string file);
-    result* ConvertStringInputToDoubleResult(string water, string oil);
-    const char* Command(string inputCommand);
-    void CreateResultDir(int idIteration);
     void FirstPopulation();
     void OtherPopulations(int idIteration);
     void Fitness(int idIteration);

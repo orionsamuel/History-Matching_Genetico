@@ -1,16 +1,3 @@
-struct individual{
-    double porosity[3];
-    double permeability_x[3];
-    double permeability_y[3];
-    double permeability_z[3];
-    double error_rank;
-};
-
-struct result{
-    double water;
-    double oil;
-};
-
 const string inputOil = "../Input/WOPR:PROD.txt";
 const string inputWater = "../Input/WWPR:PROD.txt";
 const string simulationFile = "../Input/SPE1CASE1.DATA";
@@ -31,4 +18,21 @@ const string simulationFile = "../Input/SPE1CASE1.DATA";
 #define WATER_WEIGHT 0.6
 #define OIL_WEIGHT 0.4
 
+#define N_PERMEABILITY 3
+
 #define N_METRICS 2
+
+struct individual{
+    double porosity;
+    double permeability_x[N_PERMEABILITY];
+    double permeability_y[N_PERMEABILITY];
+    double permeability_z[N_PERMEABILITY];
+    double error_rank;
+};
+
+struct result{
+    double water;
+    double oil;
+};
+
+
