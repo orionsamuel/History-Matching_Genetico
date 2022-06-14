@@ -49,7 +49,7 @@ result* genetic_algorithm::ConvertStringInputToDoubleResult(string water, string
 
 }
 
-const char* genetic_algorithm::Commad(string inputCommand){
+const char* genetic_algorithm::Command(string inputCommand){
     const char* command = (char*) inputCommand.c_str();
 
     return command;
@@ -61,21 +61,43 @@ void genetic_algorithm::CreateResultDir(int idIteration){
     DIR* dp = opendir(file);
 
     if(dp == NULL){
-        const char* mkdirIteration = Commad("mkdir ../Output/"+to_string(idIteration));
+        const char* mkdirIteration = Command("mkdir ../Output/"+to_string(idIteration));
         system(mkdirIteration);
-        const char* mkdirWater = Commad("mkdir ../Output/"+to_string(idIteration)+"/agua");
+        const char* mkdirWater = Command("mkdir ../Output/"+to_string(idIteration)+"/agua");
         system(mkdirWater);
-        const char* mkdirOil = Commad("mkdir ../Output/"+to_string(idIteration)+"/oleo");
+        const char* mkdirOil = Command("mkdir ../Output/"+to_string(idIteration)+"/oleo");
         system(mkdirOil);
     }else{
-        const char* rm =Commad("rm -f ../Output/0/*");
+        const char* rm =Command("rm -f ../Output/0/*");
         system(rm);
     }
 }
 
 void genetic_algorithm::FirstPopulation(){
     srand((unsigned)time(0));
+
     CreateResultDir(0);
+    
+    for(int i = 0; i < SIZE_POPULATION; i++){
+        const char* cpInputFile = Command("cp "+simulationFile+" ../Output/0/"+to_string(i)+".DATA");
+        system(cpInputFile);
+    }
+
+    individual initPopulation;
+
+    for(int i = 0; i < 3; i++){
+        initPopulation.porosity[i] = 0;
+        initPopulation.permeability_x[i] = 0;
+        initPopulation.permeability_y[i] = 0;
+        initPopulation.permeability_z[i] = 0;
+    }
+
+    for(int i = 0; i < SIZE_POPULATION; i++){
+        population.push_back(initPopulation);
+        population[i].error_rank = 0;
+    }
+
+    
 }
 
 void genetic_algorithm::Init(){

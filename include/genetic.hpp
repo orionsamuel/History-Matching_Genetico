@@ -31,7 +31,7 @@ class genetic_algorithm: public functions{
     void CreateOutputDir();
     string ReadFileInput(string file);
     result* ConvertStringInputToDoubleResult(string water, string oil);
-    const char* Commad(string inputCommand);
+    const char* Command(string inputCommand);
     void CreateResultDir(int idIteration);
     void FirstPopulation();
     void OtherPopulations(int idIteration);
