@@ -19,6 +19,7 @@ const string simulationFile = "../Input/SPE1CASE1.DATA";
 #define OIL_WEIGHT 0.4
 
 #define N_PERMEABILITY 3
+#define TOTAL_CELLS 300
 
 #define N_METRICS 2
 

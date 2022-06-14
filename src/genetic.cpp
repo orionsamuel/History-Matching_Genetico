@@ -12,11 +12,6 @@ void genetic_algorithm::FirstPopulation(){
     srand((unsigned)time(0));
 
     CreateResultDir(0);
-    
-    for(int i = 0; i < SIZE_POPULATION; i++){
-        const char* cpInputFile = Command("cp "+simulationFile+" ../Output/0/"+to_string(i)+".DATA");
-        system(cpInputFile);
-    }
 
     individual initPopulation;
 
@@ -33,10 +28,17 @@ void genetic_algorithm::FirstPopulation(){
     }
 
     for(int i = 0; i < SIZE_POPULATION; i++){
+        this->population[i].porosity = Rand_double(MIN_POROSITY, MAX_POROSITY);
         for(int j = 0; j < N_PERMEABILITY; j++){
-
+            this->population[i].permeability_x[j] = Rand_double(MIN_PERMEABILITY, MAX_PERMEBEALITY);
         }
     }
+
+    WriteSimulationFile(0, simulationFile, population);
+
+    Simulation(0);
+    Fitness(0);
+    sort(begin(this->population), end(this->population), Compare);
 
     
 }

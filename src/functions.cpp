@@ -1,6 +1,6 @@
 #include "../include/functions.hpp"
 
-void functions::simulation(int idIteration){
+void functions::Simulation(int idIteration){
     system("rm -f ../Output/output_simulation");
     if(idIteration == 0){
         for(int i = 0; i < SIZE_POPULATION; i++){
@@ -33,17 +33,19 @@ void functions::simulation(int idIteration){
     }
 }
 
-double functions::rand_double(double min, double max){
+double functions::Rand_double(double min, double max){
     random_device rd;
     default_random_engine eng(rd());
     uniform_real_distribution<double>distr(min, max);
 
     double num = distr(eng);
+    
+    num = floor(num *100) / 100;
 
     return num;
 }
 
-double functions::max(double num1, double num2){
+double functions::Max(double num1, double num2){
     if(num1 > num2){
         return num1;
     }else{
@@ -51,7 +53,7 @@ double functions::max(double num1, double num2){
     }
 }
 
-double functions::min(double num1, double num2){
+double functions::Min(double num1, double num2){
     if(num1 < num2){
         return num1;
     }else{
@@ -133,7 +135,37 @@ void functions::CreateResultDir(int idIteration){
         const char* mkdirOil = Command("mkdir ../Output/"+to_string(idIteration)+"/oleo");
         system(mkdirOil);
     }else{
-        const char* rm =Command("rm -f ../Output/0/*");
+        const char* rm =Command("rm -f ../Output/"+to_string(idIteration)+"/*");
         system(rm);
     }
+}
+
+void functions::WriteSimulationFile(int idIteration, string inputFile, vector<individual> population){
+    ifstream input(inputFile);
+
+    for(int i = 0; i < SIZE_POPULATION; i++){
+        ofstream output("../Output/"+to_string(idIteration)+"/"+to_string(i)+".DATA");
+        string line;
+        int count = 0;
+
+        while(!input.eof()){
+            getline(input, line);
+            if(count == 92){
+                output << "    " << TOTAL_CELLS << "*" << population[i].porosity << endl;
+            }else if(count == 96){
+                output << "    " << "100*" << population[i].permeability_x[0] << " 100*" << population[i].permeability_x[1] << " 100*" << population[i].permeability_x[2] << endl;
+            }else if(count == 100){
+                output << "    " << "100*" << population[i].permeability_y[0] << " 100*" << population[i].permeability_y[1] << " 100*" << population[i].permeability_y[2] << endl;
+            }else if(count == 105){
+                output << "    " << "100*" << population[i].permeability_z[0] << " 100*" << population[i].permeability_z[1] << " 100*" << population[i].permeability_z[2] << endl;
+            }else{
+                output << line << endl;
+            }
+        }
+
+        output.close();
+    }
+
+    input.close();
+    
 }
