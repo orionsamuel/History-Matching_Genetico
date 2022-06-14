@@ -17,7 +17,7 @@ using namespace std;
 class genetic_algorithm: public functions{
     private:
     vector<individual> population;
-    result* real_results;
+    result* realResults;
     individual children[((SIZE_POPULATION * CROSSOVER_RATE) / 100)];
     int crossover_rate = ((SIZE_POPULATION * CROSSOVER_RATE) / 100);
     int mutation_rate = ((((SIZE_POPULATION * CROSSOVER_RATE) / 100) * MUTATION_RATE) / 100)    ;
@@ -27,10 +27,15 @@ class genetic_algorithm: public functions{
     genetic_algorithm();
     ~genetic_algorithm();
 
-    void init();
-    void firstPopulation();
-    void otherPopulations(int idIteration);
-    void fitness(int idIteration);
-    void crossover();
-    void mutation(); 
+    void Init();
+    void CreateOutputDir();
+    string ReadFileInput(string file);
+    result* ConvertStringInputToDoubleResult(string water, string oil);
+    const char* Commad(string inputCommand);
+    void CreateResultDir(int idIteration);
+    void FirstPopulation();
+    void OtherPopulations(int idIteration);
+    void Fitness(int idIteration);
+    void Crossover();
+    void Mutation(); 
 };

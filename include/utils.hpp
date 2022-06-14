@@ -11,6 +11,10 @@ struct result{
     double oil;
 };
 
+const string inputOil = "../Input/WOPR:PROD.txt";
+const string inputWater = "../Input/WWPR:PROD.txt";
+
+
 #define SIZE_POPULATION 100
 #define N_GENERATIONS 10
 
