@@ -138,9 +138,9 @@ void functions::CreateResultDir(int idIteration){
 }
 
 void functions::WriteSimulationFile(int idIteration, string inputFile, vector<individual> population){
-    ifstream input(inputFile);
 
     for(int i = 0; i < SIZE_POPULATION; i++){
+        ifstream input(inputFile);
         ofstream output("../Output/"+to_string(idIteration)+"/"+to_string(i)+".DATA");
         string line;
         int count = 0;
@@ -158,12 +158,13 @@ void functions::WriteSimulationFile(int idIteration, string inputFile, vector<in
             }else{
                 output << line << endl;
             }
-        }
 
+            count++;
+        }
+        
+        input.close();
         output.close();
     }
-
-    input.close();
     
 }
 

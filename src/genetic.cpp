@@ -31,6 +31,8 @@ void genetic_algorithm::FirstPopulation(){
         this->population[i].porosity = Rand_double(MIN_POROSITY, MAX_POROSITY);
         for(int j = 0; j < N_PERMEABILITY; j++){
             this->population[i].permeability_x[j] = Rand_double(MIN_PERMEABILITY, MAX_PERMEBEALITY);
+            this->population[i].permeability_y[j] = Rand_double(MIN_PERMEABILITY, MAX_PERMEBEALITY);
+            this->population[i].permeability_z[j] = Rand_double(MIN_PERMEABILITY, MAX_PERMEBEALITY);
         }
     }
 
