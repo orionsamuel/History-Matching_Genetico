@@ -10,7 +10,7 @@ genetic_algorithm::~genetic_algorithm(){
 
 void genetic_algorithm::FirstPopulation(){
     srand((unsigned)time(0));
-
+    
     CreateResultDir(0);
 
     individual initPopulation;
@@ -20,10 +20,10 @@ void genetic_algorithm::FirstPopulation(){
         initPopulation.permeability_y[i] = 0;
         initPopulation.permeability_z[i] = 0;
     }
-
+    
     for(int i = 0; i < SIZE_POPULATION; i++){
-        this->population[i].porosity = 0;
         this->population.push_back(initPopulation);
+        this->population[i].porosity = 0;
         this->population[i].error_rank = 0;
     }
 
@@ -36,14 +36,21 @@ void genetic_algorithm::FirstPopulation(){
 
     WriteSimulationFile(0, simulationFile, population);
 
-    Simulation(0);
+    /*Simulation(0);
     Fitness(0);
     sort(begin(this->population), end(this->population), Compare);
+
+    WriteErrorFile(0, population);
+
+    WriteSimulationFile(0, simulationFile, population);*/
+
+
 
     
 }
 
 void genetic_algorithm::Init(){
+  
     CreateOutputDir();
 
     string waterInputResult = ReadFileInput(inputWater);
@@ -53,10 +60,10 @@ void genetic_algorithm::Init(){
 
     FirstPopulation();
     int count = 1;
-    while(count < N_GENERATIONS){
-        OtherPopulations(count);
-        count++;
-    }
+    // while(count < N_GENERATIONS){
+    //     OtherPopulations(count);
+    //     count++;
+    // }
 
 }
 

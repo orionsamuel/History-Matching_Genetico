@@ -118,7 +118,6 @@ result* functions::ConvertStringInputToDoubleResult(string water, string oil){
 
 const char* functions::Command(string inputCommand){
     const char* command = (char*) inputCommand.c_str();
-
     return command;
 }
 
@@ -127,17 +126,15 @@ void functions::CreateResultDir(int idIteration){
     const char* file = (char*) command.c_str();
     DIR* dp = opendir(file);
 
-    if(dp == NULL){
-        const char* mkdirIteration = Command("mkdir ../Output/"+to_string(idIteration));
-        system(mkdirIteration);
-        const char* mkdirWater = Command("mkdir ../Output/"+to_string(idIteration)+"/agua");
-        system(mkdirWater);
-        const char* mkdirOil = Command("mkdir ../Output/"+to_string(idIteration)+"/oleo");
-        system(mkdirOil);
+    if(dp == NULL){;
+        system(Command("mkdir ../Output/"+to_string(idIteration)));
+        system(Command("mkdir ../Output/"+to_string(idIteration)+"/agua"));
+        system(Command("mkdir ../Output/"+to_string(idIteration)+"/oleo"));
     }else{
-        const char* rm =Command("rm -f ../Output/"+to_string(idIteration)+"/*");
+        const char* rm = Command("rm -f ../Output/"+to_string(idIteration)+"/*");
         system(rm);
     }
+
 }
 
 void functions::WriteSimulationFile(int idIteration, string inputFile, vector<individual> population){
@@ -157,7 +154,7 @@ void functions::WriteSimulationFile(int idIteration, string inputFile, vector<in
             }else if(count == 100){
                 output << "    " << "100*" << population[i].permeability_y[0] << " 100*" << population[i].permeability_y[1] << " 100*" << population[i].permeability_y[2] << endl;
             }else if(count == 105){
-                output << "    " << "100*" << population[i].permeability_z[0] << " 100*" << population[i].permeability_z[1] << " 100*" << population[i].permeability_z[2] << endl;
+                output << "    " << "100*" << population[i].permeability_z[0] << " 100*" << population [i].permeability_z[1] << " 100*" << population[i].permeability_z[2] << endl;
             }else{
                 output << line << endl;
             }
@@ -168,4 +165,14 @@ void functions::WriteSimulationFile(int idIteration, string inputFile, vector<in
 
     input.close();
     
+}
+
+void functions::WriteErrorFile(int idIteration, vector<individual> population){
+    ofstream errorFile("../Output/"+to_string(idIteration)+"/error.txt", ios::out);
+    
+    for(int i = 0; i < SIZE_POPULATION; i++){
+        errorFile << population[i].error_rank << endl;
+    }
+
+    errorFile.close();
 }

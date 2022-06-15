@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 #include <sys/types.h>
 #include <dirent.h>
 #include <random>
@@ -25,6 +24,7 @@ class functions{
     const char* Command(string inputCommand);
     void CreateResultDir(int idIteration);
     void WriteSimulationFile(int idIteration, string inputFile, vector<individual> population);
+    void WriteErrorFile(int idIteration, vector<individual> population);
 
     static bool Compare(const individual n, const individual m){
         return n.error_rank < m.error_rank;

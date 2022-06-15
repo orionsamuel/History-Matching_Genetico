@@ -4,11 +4,9 @@
 int main(){
     genetic_algorithm ga;
 
-    ga.init();
+    ga.Init();
 
     cout << "Finish" << endl;
-
-    ga.~genetic_algorithm();
 
     return 0;
 }
