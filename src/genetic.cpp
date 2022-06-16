@@ -38,13 +38,13 @@ void genetic_algorithm::FirstPopulation(){
 
     WriteSimulationFile(0, simulationFile, population);
 
-    /*Simulation(0);
-    Fitness(0);
-    sort(begin(this->population), end(this->population), Compare);
+    Simulation(0);
+    // Fitness(0);
+    // sort(begin(this->population), end(this->population), Compare);
+  
+    // WriteErrorFile(0, population);
 
-    WriteErrorFile(0, population);
-
-    WriteSimulationFile(0, simulationFile, population);*/
+    // WriteSimulationFile(0, simulationFile, population);
 
 
 

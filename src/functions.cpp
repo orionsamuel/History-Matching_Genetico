@@ -5,30 +5,36 @@ void functions::Simulation(int idIteration){
     if(idIteration == 0){
         for(int i = 0; i < SIZE_POPULATION; i++){
             cout << "Executando a simulação no indivíduo " << i << " da iteração " << idIteration << endl;
-            string command = "cp ../Output/"+to_string(idIteration)+"/inputDS_"+to_string(i)+".dat ../../Codigo_Bifasico_Slab/simulacoes/dev/inputDS.dat";
-            const char* file = (char*) command.c_str();
-            system(file);
-            system("./../../Codigo_Bifasico_Slab/rodarSimulador.sh >> output_simulation 2>> ../Output/output_simulation");
-            command = "cp ../../Codigo_Bifasico_Slab/simulacoes/dev/out/resultadoVazaoAgua.dat ../Output/"+to_string(idIteration)+"/agua/vazaoAgua_"+to_string(i)+".dat";
-            file = (char*) command.c_str();
-            system(file);
-            command = "cp ../../Codigo_Bifasico_Slab/simulacoes/dev/out/resultadoVazaoOleo.dat ../Output/"+to_string(idIteration)+"/oleo/vazaoOleo_"+to_string(i)+".dat";
-            file = (char*) command.c_str();
-            system(file);
+            system(Command("cd ../Output/"+to_string(i)));
+            system(Command("mpirun -np 4 flow "+to_string(i)+".DATA"));
+            system(Command("python3 ../../summaryplot.py WOPR:PROD WWPR:PROD"));
+            system(Command("mv WOPR:PROD.txt oleo/"+to_string(i)+".txt"));
+            system(Command("mv WWPR:PROD.txt agua/"+to_string(i)+".txt"));
+            system(Command("rm "+to_string(i)+".DBG"));
+            system(Command("rm "+to_string(i)+".EGRID"));
+            system(Command("rm "+to_string(i)+".INFOSTEP"));
+            system(Command("rm "+to_string(i)+".INIT"));
+            system(Command("rm "+to_string(i)+".PRT"));
+            system(Command("rm "+to_string(i)+".SMSPEC"));
+            system(Command("rm "+to_string(i)+".UNRST"));
+            system(Command("rm "+to_string(i)+".UNSMRY"));
         }
     }else{
         for(int i = SIZE_POPULATION; i < (SIZE_POPULATION + ((SIZE_POPULATION * CROSSOVER_RATE) / 100)); i++){
             cout << "Executando a simulação no indivíduo " << i << " da iteração " << idIteration << endl;
-            string command = "cp ../Output/"+to_string(idIteration)+"/inputDS_"+to_string(i)+".dat ../../Codigo_Bifasico_Slab/simulacoes/dev/inputDS.dat";
-            const char* file = (char*) command.c_str();
-            system(file);
-            system("./../../Codigo_Bifasico_Slab/rodarSimulador.sh >> output_simulation 2>> ../Output/output_simulation");
-            command = "cp ../../Codigo_Bifasico_Slab/simulacoes/dev/out/resultadoVazaoAgua.dat ../Output/"+to_string(idIteration)+"/agua/vazaoAgua_"+to_string(i)+".dat";
-            file = (char*) command.c_str();
-            system(file);
-            command = "cp ../../Codigo_Bifasico_Slab/simulacoes/dev/out/resultadoVazaoOleo.dat ../Output/"+to_string(idIteration)+"/oleo/vazaoOleo_"+to_string(i)+".dat";
-            file = (char*) command.c_str();
-            system(file);
+            system(Command("cd ../Output/"+to_string(i)));
+            system(Command("mpirun -np 4 flow "+to_string(i)+".DATA"));
+            system(Command("python3 ../../summaryplot.py WOPR:PROD WWPR:PROD"));
+            system(Command("mv WOPR:PROD.txt oleo/"+to_string(i)+".txt"));
+            system(Command("mv WWPR:PROD.txt agua/"+to_string(i)+".txt"));
+            system(Command("rm "+to_string(i)+".DBG"));
+            system(Command("rm "+to_string(i)+".EGRID"));
+            system(Command("rm "+to_string(i)+".INFOSTEP"));
+            system(Command("rm "+to_string(i)+".INIT"));
+            system(Command("rm "+to_string(i)+".PRT"));
+            system(Command("rm "+to_string(i)+".SMSPEC"));
+            system(Command("rm "+to_string(i)+".UNRST"));
+            system(Command("rm "+to_string(i)+".UNSMRY"));
         }
     }
 }
@@ -161,7 +167,7 @@ void functions::WriteSimulationFile(int idIteration, string inputFile, vector<in
 
             count++;
         }
-        
+
         input.close();
         output.close();
     }
