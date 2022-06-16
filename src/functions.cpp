@@ -7,7 +7,7 @@ void functions::Simulation(int idIteration){
         for(int i = 0; i < SIZE_POPULATION; i++){
             cout << "Executando a simulação no indivíduo " << i << " da iteração " << idIteration << endl;
             system(Command("mpirun -np 4 flow ../Output/"+to_string(idIteration)+"/"+to_string(i)+".DATA"));
-            system(Command("python3 ../Output/"+to_string(idIteration)+"/summaryplot.py WOPR:PROD WWPR:PROD"));
+            system(Command("python3 ../Output/"+to_string(idIteration)+"/summaryplot.py WOPR:PROD WWPR:PROD "+to_string(i)+".DATA"));
             system(Command("mv ../Output/"+to_string(idIteration)+"/WOPR:PROD.txt ../Output/"+to_string(idIteration)+"/oleo/"+to_string(i)+".txt"));
             system(Command("mv ../Output/"+to_string(idIteration)+"/ WWPR:PROD.txt ../Output/"+to_string(idIteration)+"/agua/"+to_string(i)+".txt"));
             system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".DBG"));
@@ -23,7 +23,7 @@ void functions::Simulation(int idIteration){
         for(int i = SIZE_POPULATION; i < (SIZE_POPULATION + ((SIZE_POPULATION * CROSSOVER_RATE) / 100)); i++){
             cout << "Executando a simulação no indivíduo " << i << " da iteração " << idIteration << endl;
             system(Command("mpirun -np 4 flow ../Output/"+to_string(idIteration)+"/"+to_string(i)+".DATA"));
-            system(Command("python3 ../Output/"+to_string(idIteration)+"/summaryplot.py WOPR:PROD WWPR:PROD"));
+            system(Command("python3 ../Output/"+to_string(idIteration)+"/summaryplot.py WOPR:PROD WWPR:PROD "+to_string(i)+".DATA"));
             system(Command("mv ../Output/"+to_string(idIteration)+"/WOPR:PROD.txt ../Output/"+to_string(idIteration)+"/oleo/"+to_string(i)+".txt"));
             system(Command("mv ../Output/"+to_string(idIteration)+"/ WWPR:PROD.txt ../Output/"+to_string(idIteration)+"/agua/"+to_string(i)+".txt"));
             system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".DBG"));
