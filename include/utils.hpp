@@ -8,7 +8,7 @@ const string simulationFile = "../Input/SPE1CASE1.DATA";
 const string fileName = "SPE1CASE1";
 
 
-#define SIZE_POPULATION 1
+#define SIZE_POPULATION 100
 #define N_GENERATIONS 10
 
 #define CROSSOVER_RATE 80
