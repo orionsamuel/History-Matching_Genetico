@@ -2,13 +2,13 @@
 
 using namespace std;
 
-const string inputOil = "../Input/WOPR:PROD.txt";
-const string inputWater = "../Input/WWPR:PROD.txt";
+const string inputOil = "../Input/oleo.txt";
+const string inputWater = "../Input/agua.txt";
 const string simulationFile = "../Input/SPE1CASE1.DATA";
 const string fileName = "SPE1CASE1";
 
 
-#define SIZE_POPULATION 100
+#define SIZE_POPULATION 1
 #define N_GENERATIONS 10
 
 #define CROSSOVER_RATE 80
