@@ -52,12 +52,11 @@ void genetic_algorithm::FirstPopulation(){
 }
 
 void genetic_algorithm::Init(){
-  
     CreateOutputDir();
-
+    
     string waterInputResult = ReadFileInput(inputWater);
     string oilInputResult = ReadFileInput(inputOil);
-
+    
     realResults = ConvertStringInputToDoubleResult(waterInputResult, oilInputResult);
 
     FirstPopulation();

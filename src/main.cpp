@@ -3,7 +3,7 @@
 
 int main(){
     genetic_algorithm ga;
-
+    
     ga.Init();
 
     cout << "Finish" << endl;
