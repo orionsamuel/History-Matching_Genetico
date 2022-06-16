@@ -1,13 +1,11 @@
 #include "../include/functions.hpp"
 
 void functions::Simulation(int idIteration){
-    system("rm -f ../Output/output_simulation");
     if(idIteration == 0){
         for(int i = 0; i < SIZE_POPULATION; i++){
             cout << "Executando a simulação no indivíduo " << i << " da iteração " << idIteration << endl;
-            system(Command("cd ../Output/"+to_string(i)));
-            system(Command("mpirun -np 4 flow "+to_string(i)+".DATA"));
-            system(Command("python3 ../../summaryplot.py WOPR:PROD WWPR:PROD"));
+            system(Command("mpirun -np 4 flow ../Output/"+to_string(idIteration)+"/"+to_string(i)+".DATA"));
+            system(Command("python3 ../summaryplot.py WOPR:PROD WWPR:PROD"));
             system(Command("mv WOPR:PROD.txt oleo/"+to_string(i)+".txt"));
             system(Command("mv WWPR:PROD.txt agua/"+to_string(i)+".txt"));
             system(Command("rm "+to_string(i)+".DBG"));
@@ -22,9 +20,8 @@ void functions::Simulation(int idIteration){
     }else{
         for(int i = SIZE_POPULATION; i < (SIZE_POPULATION + ((SIZE_POPULATION * CROSSOVER_RATE) / 100)); i++){
             cout << "Executando a simulação no indivíduo " << i << " da iteração " << idIteration << endl;
-            system(Command("cd ../Output/"+to_string(i)));
-            system(Command("mpirun -np 4 flow "+to_string(i)+".DATA"));
-            system(Command("python3 ../../summaryplot.py WOPR:PROD WWPR:PROD"));
+            system(Command("mpirun -np 4 flow ../Output/"+to_string(idIteration)+"/"+to_string(i)+".DATA"));
+            system(Command("python3 ../summaryplot.py WOPR:PROD WWPR:PROD"));
             system(Command("mv WOPR:PROD.txt oleo/"+to_string(i)+".txt"));
             system(Command("mv WWPR:PROD.txt agua/"+to_string(i)+".txt"));
             system(Command("rm "+to_string(i)+".DBG"));
@@ -156,11 +153,11 @@ void functions::WriteSimulationFile(int idIteration, string inputFile, vector<in
             if(count == 92){
                 output << "    " << TOTAL_CELLS << "*" << population[i].porosity << endl;
             }else if(count == 96){
-                output << "    " << "100*" << population[i].permeability_x[0] << " 100*" << population[i].permeability_x[1] << " 100*" << population[i].permeability_x[2] << endl;
+                output << "    " << "100*" << (int) population[i].permeability_x[0] << " 100*" << (int) population[i].permeability_x[1] << " 100*" << (int) population[i].permeability_x[2] << endl;
             }else if(count == 100){
-                output << "    " << "100*" << population[i].permeability_y[0] << " 100*" << population[i].permeability_y[1] << " 100*" << population[i].permeability_y[2] << endl;
+                output << "    " << "100*" << (int) population[i].permeability_y[0] << " 100*" << (int) population[i].permeability_y[1] << " 100*" << (int) population[i].permeability_y[2] << endl;
             }else if(count == 105){
-                output << "    " << "100*" << population[i].permeability_z[0] << " 100*" << population [i].permeability_z[1] << " 100*" << population[i].permeability_z[2] << endl;
+                output << "    " << "100*" << (int) population[i].permeability_z[0] << " 100*" << (int) population [i].permeability_z[1] << " 100*" << (int) population[i].permeability_z[2] << endl;
             }else{
                 output << line << endl;
             }
