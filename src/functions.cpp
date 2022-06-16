@@ -1,39 +1,43 @@
 #include "../include/functions.hpp"
 
 void functions::Simulation(int idIteration){
+    system(Command("cp ../summaryplot.py ../Output/"+to_string(idIteration)));
+
     if(idIteration == 0){
         for(int i = 0; i < SIZE_POPULATION; i++){
             cout << "Executando a simulação no indivíduo " << i << " da iteração " << idIteration << endl;
             system(Command("mpirun -np 4 flow ../Output/"+to_string(idIteration)+"/"+to_string(i)+".DATA"));
-            system(Command("python3 ../summaryplot.py WOPR:PROD WWPR:PROD"));
-            system(Command("mv WOPR:PROD.txt oleo/"+to_string(i)+".txt"));
-            system(Command("mv WWPR:PROD.txt agua/"+to_string(i)+".txt"));
-            system(Command("rm "+to_string(i)+".DBG"));
-            system(Command("rm "+to_string(i)+".EGRID"));
-            system(Command("rm "+to_string(i)+".INFOSTEP"));
-            system(Command("rm "+to_string(i)+".INIT"));
-            system(Command("rm "+to_string(i)+".PRT"));
-            system(Command("rm "+to_string(i)+".SMSPEC"));
-            system(Command("rm "+to_string(i)+".UNRST"));
-            system(Command("rm "+to_string(i)+".UNSMRY"));
+            system(Command("python3 ../Output/"+to_string(idIteration)+"/summaryplot.py WOPR:PROD WWPR:PROD"));
+            system(Command("mv ../Output/"+to_string(idIteration)+"/WOPR:PROD.txt ../Output/"+to_string(idIteration)+"/oleo/"+to_string(i)+".txt"));
+            system(Command("mv ../Output/"+to_string(idIteration)+"/ WWPR:PROD.txt ../Output/"+to_string(idIteration)+"/agua/"+to_string(i)+".txt"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".DBG"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".EGRID"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".INFOSTEP"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".INIT"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".PRT"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".SMSPEC"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".UNRST"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".UNSMRY"));
         }
     }else{
         for(int i = SIZE_POPULATION; i < (SIZE_POPULATION + ((SIZE_POPULATION * CROSSOVER_RATE) / 100)); i++){
             cout << "Executando a simulação no indivíduo " << i << " da iteração " << idIteration << endl;
             system(Command("mpirun -np 4 flow ../Output/"+to_string(idIteration)+"/"+to_string(i)+".DATA"));
-            system(Command("python3 ../summaryplot.py WOPR:PROD WWPR:PROD"));
-            system(Command("mv WOPR:PROD.txt oleo/"+to_string(i)+".txt"));
-            system(Command("mv WWPR:PROD.txt agua/"+to_string(i)+".txt"));
-            system(Command("rm "+to_string(i)+".DBG"));
-            system(Command("rm "+to_string(i)+".EGRID"));
-            system(Command("rm "+to_string(i)+".INFOSTEP"));
-            system(Command("rm "+to_string(i)+".INIT"));
-            system(Command("rm "+to_string(i)+".PRT"));
-            system(Command("rm "+to_string(i)+".SMSPEC"));
-            system(Command("rm "+to_string(i)+".UNRST"));
-            system(Command("rm "+to_string(i)+".UNSMRY"));
+            system(Command("python3 ../Output/"+to_string(idIteration)+"/summaryplot.py WOPR:PROD WWPR:PROD"));
+            system(Command("mv ../Output/"+to_string(idIteration)+"/WOPR:PROD.txt ../Output/"+to_string(idIteration)+"/oleo/"+to_string(i)+".txt"));
+            system(Command("mv ../Output/"+to_string(idIteration)+"/ WWPR:PROD.txt ../Output/"+to_string(idIteration)+"/agua/"+to_string(i)+".txt"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".DBG"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".EGRID"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".INFOSTEP"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".INIT"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".PRT"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".SMSPEC"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".UNRST"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".UNSMRY"));
         }
     }
+
+    system(Command("rm  ../Output/"+to_string(idIteration)+"/summaryplot.py"));
 }
 
 double functions::Rand_double(double min, double max){
