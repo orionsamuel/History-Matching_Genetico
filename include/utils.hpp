@@ -5,6 +5,7 @@ using namespace std;
 const string inputOil = "../Input/WOPR:PROD.txt";
 const string inputWater = "../Input/WWPR:PROD.txt";
 const string simulationFile = "../Input/SPE1CASE1.DATA";
+const string fileName = "SPE1CASE1";
 
 
 #define SIZE_POPULATION 100

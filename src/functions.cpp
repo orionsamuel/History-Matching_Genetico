@@ -1,39 +1,39 @@
 #include "../include/functions.hpp"
 
-void functions::Simulation(int idIteration){
+void functions::Simulation(int idIteration, string file){
     system(Command("cp ../summaryplot.py ../Output/"+to_string(idIteration)));
 
     if(idIteration == 0){
         for(int i = 0; i < SIZE_POPULATION; i++){
             cout << "Executando a simulação no indivíduo " << i << " da iteração " << idIteration << endl;
-            system(Command("mpirun -np 4 flow ../Output/"+to_string(idIteration)+"/"+to_string(i)+".DATA >> out.txt"));
-            system(Command("python3 ../Output/"+to_string(idIteration)+"/summaryplot.py WOPR:PROD WWPR:PROD ../Output/"+to_string(idIteration)+"/"+to_string(i)+".DATA"));
+            system(Command("mpirun -np 4 flow ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DATA >> out.txt"));
+            system(Command("python3 ../Output/"+to_string(idIteration)+"/summaryplot.py WOPR:PROD WWPR:PROD ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DATA >> out.txt"));
             system(Command("mv ../Output/"+to_string(idIteration)+"/WOPR:PROD.txt ../Output/"+to_string(idIteration)+"/oleo/"+to_string(i)+".txt"));
             system(Command("mv ../Output/"+to_string(idIteration)+"/ WWPR:PROD.txt ../Output/"+to_string(idIteration)+"/agua/"+to_string(i)+".txt"));
-            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".DBG"));
-            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".EGRID"));
-            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".INFOSTEP"));
-            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".INIT"));
-            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".PRT"));
-            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".SMSPEC"));
-            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".UNRST"));
-            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".UNSMRY"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DBG"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".EGRID"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".INFOSTEP"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".INIT"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".PRT"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".SMSPEC"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".UNRST"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".UNSMRY"));
         }
     }else{
         for(int i = SIZE_POPULATION; i < (SIZE_POPULATION + ((SIZE_POPULATION * CROSSOVER_RATE) / 100)); i++){
             cout << "Executando a simulação no indivíduo " << i << " da iteração " << idIteration << endl;
-            system(Command("mpirun -np 4 flow ../Output/"+to_string(idIteration)+"/"+to_string(i)+".DATA >> out.txt"));
-            system(Command("python3 ../Output/"+to_string(idIteration)+"/summaryplot.py WOPR:PROD WWPR:PROD "+to_string(i)+".DATA"));
+            system(Command("mpirun -np 4 flow ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DATA >> out.txt"));
+            system(Command("python3 ../Output/"+to_string(idIteration)+"/summaryplot.py WOPR:PROD WWPR:PROD ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DATA >> out.txt"));
             system(Command("mv ../Output/"+to_string(idIteration)+"/WOPR:PROD.txt ../Output/"+to_string(idIteration)+"/oleo/"+to_string(i)+".txt"));
             system(Command("mv ../Output/"+to_string(idIteration)+"/ WWPR:PROD.txt ../Output/"+to_string(idIteration)+"/agua/"+to_string(i)+".txt"));
-            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".DBG"));
-            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".EGRID"));
-            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".INFOSTEP"));
-            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".INIT"));
-            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".PRT"));
-            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".SMSPEC"));
-            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".UNRST"));
-            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+".UNSMRY"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DBG"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".EGRID"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".INFOSTEP"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".INIT"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".PRT"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".SMSPEC"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".UNRST"));
+            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".UNSMRY"));
         }
     }
 
@@ -144,11 +144,11 @@ void functions::CreateResultDir(int idIteration){
 
 }
 
-void functions::WriteSimulationFile(int idIteration, string inputFile, vector<individual> population){
-
+void functions::WriteSimulationFile(int idIteration, string inputFile, string file, vector<individual> population){
     for(int i = 0; i < SIZE_POPULATION; i++){
-        ifstream input(inputFile);
-        ofstream output("../Output/"+to_string(idIteration)+"/"+to_string(i)+".DATA");
+        ifstream input(inputFile, ios::in);
+        ofstream output("../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DATA", ios::out);
+        cout << "../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file << endl;
         string line;
         int count = 0;
 

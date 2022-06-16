@@ -35,10 +35,10 @@ void genetic_algorithm::FirstPopulation(){
             this->population[i].permeability_z[j] = Rand_double(MIN_PERMEABILITY, MAX_PERMEBEALITY);
         }
     }
+ 
+    WriteSimulationFile(0, simulationFile, fileName, population);
 
-    WriteSimulationFile(0, simulationFile, population);
-
-    Simulation(0);
+    Simulation(0, fileName);
     // Fitness(0);
     // sort(begin(this->population), end(this->population), Compare);
   

@@ -13,7 +13,7 @@ using namespace std;
 class functions{
     public:
 
-    void Simulation(int idIteration);
+    void Simulation(int idIteration, string file);
     double Rand_double(double min, double max);
     double Max(double num1, double num2);
     double Min(double num1, double num2);
@@ -23,7 +23,7 @@ class functions{
     result* ConvertStringInputToDoubleResult(string water, string oil);
     const char* Command(string inputCommand);
     void CreateResultDir(int idIteration);
-    void WriteSimulationFile(int idIteration, string inputFile, vector<individual> population);
+    void WriteSimulationFile(int idIteration, string inputFile, string file, vector<individual> population);
     void WriteErrorFile(int idIteration, vector<individual> population);
 
     static bool Compare(const individual n, const individual m){
