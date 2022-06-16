@@ -148,7 +148,6 @@ void functions::WriteSimulationFile(int idIteration, string inputFile, string fi
     for(int i = 0; i < SIZE_POPULATION; i++){
         ifstream input(inputFile, ios::in);
         ofstream output("../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DATA", ios::out);
-        cout << "../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file << endl;
         string line;
         int count = 0;
 
