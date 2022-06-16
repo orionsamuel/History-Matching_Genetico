@@ -151,13 +151,13 @@ void functions::WriteSimulationFile(int idIteration, string inputFile, vector<in
         while(!input.eof()){
             getline(input, line);
             if(count == 92){
-                output << "    " << TOTAL_CELLS << "*" << population[i].porosity << endl;
+                output << "    " << TOTAL_CELLS << "*" << population[i].porosity << " /"  << endl;
             }else if(count == 96){
-                output << "    " << "100*" << (int) population[i].permeability_x[0] << " 100*" << (int) population[i].permeability_x[1] << " 100*" << (int) population[i].permeability_x[2] << endl;
+                output << "    " << "100*" << population[i].permeability_x[0] << " 100*" << population[i].permeability_x[1] << " 100*" << population[i].permeability_x[2] << " /" << endl;
             }else if(count == 100){
-                output << "    " << "100*" << (int) population[i].permeability_y[0] << " 100*" << (int) population[i].permeability_y[1] << " 100*" << (int) population[i].permeability_y[2] << endl;
+                output << "    " << "100*" << population[i].permeability_y[0] << " 100*" << population[i].permeability_y[1] << " 100*" << population[i].permeability_y[2] << " /"  << endl;
             }else if(count == 105){
-                output << "    " << "100*" << (int) population[i].permeability_z[0] << " 100*" << (int) population [i].permeability_z[1] << " 100*" << (int) population[i].permeability_z[2] << endl;
+                output << "    " << "100*" << population[i].permeability_z[0] << " 100*" << population [i].permeability_z[1] << " 100*" << population[i].permeability_z[2] << " /"  << endl;
             }else{
                 output << line << endl;
             }
