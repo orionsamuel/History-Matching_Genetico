@@ -50,7 +50,7 @@ void genetic_algorithm::FirstPopulation(){
 }
 
 void genetic_algorithm::OtherPopulations(int idIteration){
-    //Crossover();
+    Crossover();
 
     CreateResultDir(idIteration);
 
@@ -63,7 +63,7 @@ void genetic_algorithm::OtherPopulations(int idIteration){
     }
 
     Simulation(idIteration, fileName);
-    // Fitness(iDdIteration);
+    Fitness(idIteration);
     sort(begin(this->population), end(this->population), Compare);
 
     WriteErrorFile(0, population);
@@ -77,6 +77,10 @@ void genetic_algorithm::OtherPopulations(int idIteration){
     for(int i = 0; i < SIZE_POPULATION; i++){
         WriteSimulationFile(0, i, simulationFile, fileName, population);
     }
+
+}
+
+void genetic_algorithm::Fitness(int idInteration){
 
 }
 
