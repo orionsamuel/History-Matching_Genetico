@@ -17,8 +17,8 @@ const string fileName = "SPE1CASE1";
 #define MIN_POROSITY 0.1
 #define MAX_POROSITY 0.3
 
-#define MIN_PERMEABILITY 50
-#define MAX_PERMEBEALITY 500
+#define MIN_PERMEABILITY 50.0
+#define MAX_PERMEABILITY 500.0
 
 #define WATER_WEIGHT 0.6
 #define OIL_WEIGHT 0.4
@@ -39,6 +39,13 @@ struct individual{
 struct result{
     double water;
     double oil;
+};
+
+struct mutationValue{
+    double porosity;
+    double permeability_x;
+    double permeability_y;
+    double permeability_z;
 };
 
 

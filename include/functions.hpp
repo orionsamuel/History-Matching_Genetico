@@ -23,8 +23,9 @@ class functions{
     result* ConvertStringInputToDoubleResult(string water, string oil);
     const char* Command(string inputCommand);
     void CreateResultDir(int idIteration);
-    void WriteSimulationFile(int idIteration, string inputFile, string file, vector<individual> population);
+    void WriteSimulationFile(int idIteration, int interator, string inputFile, string file, vector<individual> population);
     void WriteErrorFile(int idIteration, vector<individual> population);
+    mutationValue RandMutationValue(individual children, int gene, bool soma);
 
     static bool Compare(const individual n, const individual m){
         return n.error_rank < m.error_rank;

@@ -144,33 +144,31 @@ void functions::CreateResultDir(int idIteration){
 
 }
 
-void functions::WriteSimulationFile(int idIteration, string inputFile, string file, vector<individual> population){
-    for(int i = 0; i < SIZE_POPULATION; i++){
-        ifstream input(inputFile, ios::in);
-        ofstream output("../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DATA", ios::out);
-        string line;
-        int count = 0;
+void functions::WriteSimulationFile(int idIteration, int iterator, string inputFile, string file, vector<individual> population){
+    ifstream input(inputFile, ios::in);
+    ofstream output("../Output/"+to_string(idIteration)+"/"+to_string(iterator)+"-"+file+".DATA", ios::out);
+    string line;
+    int count = 0;
 
-        while(!input.eof()){
-            getline(input, line);
-            if(count == 92){
-                output << "    " << TOTAL_CELLS << "*" << population[i].porosity << " /"  << endl;
-            }else if(count == 96){
-                output << "    " << "100*" << population[i].permeability_x[0] << " 100*" << population[i].permeability_x[1] << " 100*" << population[i].permeability_x[2] << " /" << endl;
-            }else if(count == 100){
-                output << "    " << "100*" << population[i].permeability_y[0] << " 100*" << population[i].permeability_y[1] << " 100*" << population[i].permeability_y[2] << " /"  << endl;
-            }else if(count == 105){
-                output << "    " << "100*" << population[i].permeability_z[0] << " 100*" << population [i].permeability_z[1] << " 100*" << population[i].permeability_z[2] << " /"  << endl;
-            }else{
-                output << line << endl;
-            }
-
-            count++;
+    while(!input.eof()){
+        getline(input, line);
+        if(count == 92){
+            output << "    " << TOTAL_CELLS << "*" << population[iterator].porosity << " /"  << endl;
+        }else if(count == 96){
+            output << "    " << "100*" << population[iterator].permeability_x[0] << " 100*" << population[iterator].permeability_x[1] << " 100*" << population[iterator].permeability_x[2] << " /" << endl;
+        }else if(count == 100){
+            output << "    " << "100*" << population[iterator].permeability_y[0] << " 100*" << population[iterator].permeability_y[1] << " 100*" << population[iterator].permeability_y[2] << " /"  << endl;
+        }else if(count == 105){
+            output << "    " << "100*" << population[iterator].permeability_z[0] << " 100*" << population [iterator].permeability_z[1] << " 100*" << population[iterator].permeability_z[2] << " /"  << endl;
+        }else{
+            output << line << endl;
         }
 
-        input.close();
-        output.close();
+        count++;
     }
+
+    input.close();
+    output.close();
     
 }
 
@@ -182,4 +180,29 @@ void functions::WriteErrorFile(int idIteration, vector<individual> population){
     }
 
     errorFile.close();
+}
+
+mutationValue functions::RandMutationValue(individual children, int gene, bool soma){
+    mutationValue newValue;
+
+    int percent = rand() % (20-5+1) + 5;
+
+    newValue.porosity = (children.porosity * percent / 100);
+    newValue.permeability_x = (children.permeability_x[gene] * percent / 100);
+    newValue.permeability_y = (children.permeability_y[gene] * percent / 100);
+    newValue.permeability_z = (children.permeability_z[gene] * percent / 100);
+
+    if(soma){
+        newValue.porosity = min(MAX_POROSITY, (children.porosity + newValue.porosity));
+        newValue.permeability_x = min(MAX_PERMEABILITY, (children.permeability_x[gene] + newValue.permeability_x));
+        newValue.permeability_y = min(MAX_PERMEABILITY, (children.permeability_y[gene] + newValue.permeability_y));
+        newValue.permeability_z = min(MAX_PERMEABILITY, (children.permeability_z[gene] + newValue.permeability_z));
+    }else{
+        newValue.porosity = max(MIN_POROSITY, (children.porosity - newValue.porosity));
+        newValue.permeability_x = max(MIN_PERMEABILITY, (children.permeability_x[gene] - newValue.permeability_x));
+        newValue.permeability_y = max(MIN_PERMEABILITY, (children.permeability_y[gene] - newValue.permeability_y));
+        newValue.permeability_z = max(MIN_PERMEABILITY, (children.permeability_z[gene] - newValue.permeability_z));
+    }
+
+    return newValue;
 }
