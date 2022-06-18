@@ -26,6 +26,7 @@ class functions{
     void WriteSimulationFile(int idIteration, int interator, string inputFile, string file, vector<individual> population);
     void WriteErrorFile(int idIteration, vector<individual> population);
     mutationValue RandMutationValue(individual children, int gene, bool soma);
+    double activationFunction(string waterResult, string oilResult, result* results, int idIteration, int iterator);
 
     static bool Compare(const individual n, const individual m){
         return n.error_rank < m.error_rank;

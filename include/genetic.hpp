@@ -9,6 +9,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <algorithm>
+#include <iterator>
 #include "functions.hpp"
 
 using namespace std;

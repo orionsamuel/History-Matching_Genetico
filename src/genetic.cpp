@@ -80,8 +80,20 @@ void genetic_algorithm::OtherPopulations(int idIteration){
 
 }
 
-void genetic_algorithm::Fitness(int idInteration){
-
+void genetic_algorithm::Fitness(int idIteration){
+    if(idIteration == 0){
+        for(int i = 0; i < SIZE_POPULATION; i++){
+            string waterOutputResult = "../Output/"+to_string(idIteration)+"/agua/"+to_string(i)+".txt";
+            string oilOutputResult = "../Output/"+to_string(idIteration)+"/oleo/"+to_string(i)+".txt";
+            this->population[i].error_rank = activationFunction(waterOutputResult, oilOutputResult, realResults, idIteration, i);
+        }
+    }else{
+        for(int i = SIZE_POPULATION; i < (SIZE_POPULATION + this->crossover_rate); i++){
+            string waterOutputResult = "../Output/"+to_string(idIteration)+"/agua/"+to_string(i)+".txt";
+            string oilOutputResult = "../Output/"+to_string(idIteration)+"/oleo/"+to_string(i)+".txt";
+            this->population[i].error_rank = activationFunction(waterOutputResult, oilOutputResult, realResults, idIteration, i);
+        }
+    }
 }
 
 void genetic_algorithm::Crossover(){

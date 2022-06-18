@@ -206,3 +206,32 @@ mutationValue functions::RandMutationValue(individual children, int gene, bool s
 
     return newValue;
 }
+
+double functions::activationFunction(string waterResult, string oilResult, result* results, int idIteration, int iterator){
+    double rank;
+
+    string waterResult = ReadFileInput(waterResult);
+    string oilResult = ReadFileInput(oilResult);
+
+    result* simulateResults;
+
+    simulateResults = ConvertStringInputToDoubleResult(waterResult, oilResult);
+
+    for(int i = 0; i < N_METRICS; i++){
+        if(i == 0){
+            for(int j = 0; j < (sizeof simulateResults/sizeof simulateResults[0].water); j++){
+                rank += pow((results[j].water - simulateResults[j].water),2);
+            }
+            rank *= WATER_WEIGHT;
+        }else if(i == 1){
+            for(int j = 0; j < (sizeof simulateResults/sizeof simulateResults[0].water); j++){
+                rank += pow((results[j].oil - simulateResults[j].oil),2);
+            }
+            rank *= OIL_WEIGHT;
+        }           
+    }
+
+    rank = sqrt((rank / ((sizeof simulateResults/sizeof simulateResults[0].water) * 2)));
+
+    return rank;
+}
