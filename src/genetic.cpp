@@ -41,15 +41,15 @@ void genetic_algorithm::FirstPopulation(){
         WriteSimulationFile(0, i, simulationFile, fileName, population);
     }
     
-    Simulation(0, fileName);
-    Fitness(0);
-    sort(begin(this->population), end(this->population), Compare);
+    // Simulation(0, fileName);
+    // Fitness(0);
+    // sort(begin(this->population), end(this->population), Compare);
   
-    WriteErrorFile(0, population);
+    // WriteErrorFile(0, population);
 
-    for(int i = 0; i < SIZE_POPULATION; i++){
-        WriteSimulationFile(0, i, simulationFile, fileName, population);
-    }
+    // for(int i = 0; i < SIZE_POPULATION; i++){
+    //     WriteSimulationFile(0, i, simulationFile, fileName, population);
+    // }
 
     
 }
@@ -64,14 +64,14 @@ void genetic_algorithm::OtherPopulations(int idIteration){
     }
 
     for(int i = SIZE_POPULATION; i < (SIZE_POPULATION + this->crossover_rate); i++){
-        WriteSimulationFile(0, i, simulationFile, fileName, population);
+        WriteSimulationFile(idIteration, i, simulationFile, fileName, population);
     }
 
     Simulation(idIteration, fileName);
     Fitness(idIteration);
     sort(begin(this->population), end(this->population), Compare);
 
-    WriteErrorFile(0, population);
+    WriteErrorFile(idIteration, population);
 
     system(Command("rm -f ../Output/"+to_string(idIteration)+"/*.DATA"));
 
@@ -80,7 +80,7 @@ void genetic_algorithm::OtherPopulations(int idIteration){
     }
 
     for(int i = 0; i < SIZE_POPULATION; i++){
-        WriteSimulationFile(0, i, simulationFile, fileName, population);
+        WriteSimulationFile(idIteration, i, simulationFile, fileName, population);
     }
 
 }
@@ -168,7 +168,7 @@ void genetic_algorithm::Mutation(){
     for(int i = 0; i < this->mutation_rate; i++){
         int gene = rand() % 3;
         int tunning = rand() % 2;
-
+        
         mutationValue newValue;
 
         if(tunning == 0){
@@ -190,12 +190,12 @@ void genetic_algorithm::Init(){
     
     string waterInputResult = ReadFileInput(inputWater);
     string oilInputResult = ReadFileInput(inputOil);
-
+    
     realResults = ConvertStringInputToDoubleResult(waterInputResult, oilInputResult);
 
     FirstPopulation();
     int count = 1;
-    while(count < N_GENERATIONS){
+    while(count < 2){
         OtherPopulations(count);
         count++;
     }
