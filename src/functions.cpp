@@ -207,11 +207,11 @@ mutationValue functions::RandMutationValue(individual children, int gene, bool s
     return newValue;
 }
 
-double functions::activationFunction(string waterResult, string oilResult, result* results, int idIteration, int iterator){
+double functions::activationFunction(string waterOutputResult, string oilOutputResult, result* results, int idIteration, int iterator){
     double rank;
 
-    string waterResult = ReadFileInput(waterResult);
-    string oilResult = ReadFileInput(oilResult);
+    string waterResult = ReadFileInput(waterOutputResult);
+    string oilResult = ReadFileInput(oilOutputResult);
 
     result* simulateResults;
 
