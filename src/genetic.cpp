@@ -135,7 +135,7 @@ void genetic_algorithm::Crossover(){
         while(count < crossover_rate){
             this->children[count].porosity = this->population[count].porosity;
             this->children[count + 1].porosity = this->population[count + 1].porosity;
-            for(int i = 0; i < 5; i++){
+            for(int i = 0; i < N_PERMEABILITY; i++){
                 this->children[count].permeability_x[i] = this->population[count].permeability_x[i];
                 this->children[count].permeability_y[i] = this->population[count + 1].permeability_y[i];
                 this->children[count].permeability_z[i] = this->population[count + 1].permeability_z[i];
