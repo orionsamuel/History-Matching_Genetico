@@ -13,14 +13,19 @@ void genetic_algorithm::FirstPopulation(){
     
     CreateResultDir(0);
 
+    individual chromosome;
+
+    for(int j = 0; j < N_PERMEABILITY; j++){
+        chromosome.permeability_x[j] = 0;
+        chromosome.permeability_y[j] = 0;
+        chromosome.permeability_z[j] = 0;
+    }
+
+
     for(int i = 0; i < SIZE_POPULATION; i++){
+        this->population.push_back(chromosome);
         this->population[i].porosity = 0;
         this->population[i].error_rank = 0;
-        for(int j = 0; j < N_PERMEABILITY; j++){
-            this->population[i].permeability_x[j] = 0;
-            this->population[i].permeability_y[j] = 0;
-            this->population[i].permeability_z[j] = 0;
-        }
     }
 
     for(int i = 0; i < SIZE_POPULATION; i++){
@@ -35,9 +40,9 @@ void genetic_algorithm::FirstPopulation(){
     for(int i = 0; i < SIZE_POPULATION; i++){
         WriteSimulationFile(0, i, simulationFile, fileName, population);
     }
-
+    
     Simulation(0, fileName);
-    // Fitness(0);
+    Fitness(0);
     sort(begin(this->population), end(this->population), Compare);
   
     WriteErrorFile(0, population);
