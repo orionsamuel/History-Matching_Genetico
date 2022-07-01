@@ -3,7 +3,7 @@
 using namespace std;
 
 const string inputOil = "../Input/oleo.txt";
-const string inputWater = "../Input/agua.txt";
+const string inputWater = "../Input/gas.txt";
 const string simulationFile = "../Input/SPE1CASE1.DATA";
 const string fileName = "SPE1CASE1";
 
