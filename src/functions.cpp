@@ -220,18 +220,34 @@ double functions::activationFunction(string waterOutputResult, string oilOutputR
     for(int i = 0; i < N_METRICS; i++){
         if(i == 0){
             for(int j = 0; j < (sizeof simulateResults/sizeof simulateResults[0].water); j++){
-                rank += pow((results[j].water - simulateResults[j].water),2);
+               rank += (results[j].water - simulateResults[j].water) / results[j].water;
             }
-            rank *= WATER_WEIGHT;
-        }else if(i == 1){
-            for(int j = 0; j < (sizeof simulateResults/sizeof simulateResults[0].water); j++){
-                rank += pow((results[j].oil - simulateResults[j].oil),2);
+            rank = rank / (sizeof simulateResults/sizeof simulateResults[0].water) * 100;
+            rank = rank * WATER_WEIGHT;
+        }else{
+            for(int j = 0; j < (sizeof simulateResults/sizeof simulateResults[0].oil); j++){
+                rank += (results[j].oil - simulateResults[j].oil) / results[j].oil;
             }
-            rank *= OIL_WEIGHT;
-        }           
+            rank = rank / (sizeof simulateResults/sizeof simulateResults[0].oil) * 100;
+            rank = rank * OIL_WEIGHT;
+        }
     }
 
-    rank = sqrt((rank / ((sizeof simulateResults/sizeof simulateResults[0].water) * 2)));
+    // for(int i = 0; i < N_METRICS; i++){
+    //     if(i == 0){
+    //         for(int j = 0; j < (sizeof simulateResults/sizeof simulateResults[0].water); j++){
+    //             rank += pow((results[j].water - simulateResults[j].water),2);
+    //         }
+    //         rank *= WATER_WEIGHT;
+    //     }else if(i == 1){
+    //         for(int j = 0; j < (sizeof simulateResults/sizeof simulateResults[0].water); j++){
+    //             rank += pow((results[j].oil - simulateResults[j].oil),2);
+    //         }
+    //         rank *= OIL_WEIGHT;
+    //     }           
+    // }
+
+    // rank = sqrt((rank / ((sizeof simulateResults/sizeof simulateResults[0].water) * 2)));
 
     return rank;
 }

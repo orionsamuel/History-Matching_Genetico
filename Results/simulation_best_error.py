@@ -42,7 +42,7 @@ def simulation(n):
 
 
 if __name__ == '__main__':
-    init(100)
+    init(10)
 
 
 
