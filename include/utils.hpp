@@ -3,12 +3,13 @@
 using namespace std;
 
 const string inputOil = "../Input/oleo.txt";
-const string inputWater = "../Input/gas.txt";
+const string inputGas = "../Input/gas.txt";
+const string inputWater = "../Input/agua.txt";
 const string simulationFile = "../Input/SPE1CASE1.DATA";
 const string fileName = "SPE1CASE1";
 
 
-#define SIZE_POPULATION 100
+#define SIZE_POPULATION 5
 #define N_GENERATIONS 10
 
 #define CROSSOVER_RATE 80
@@ -20,13 +21,14 @@ const string fileName = "SPE1CASE1";
 #define MIN_PERMEABILITY 50.0
 #define MAX_PERMEABILITY 500.0
 
-#define WATER_WEIGHT 0.6
-#define OIL_WEIGHT 0.4
+#define WATER_WEIGHT 0.2
+#define OIL_WEIGHT 0.5
+#define GAS_WEIGHT 0.3
 
 #define N_PERMEABILITY 3
 #define TOTAL_CELLS 300
 
-#define N_METRICS 2
+#define N_METRICS 3
 
 struct individual{
     double porosity;
@@ -39,6 +41,7 @@ struct individual{
 struct result{
     double water;
     double oil;
+    double gas;
 };
 
 struct mutationValue{

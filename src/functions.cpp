@@ -7,9 +7,10 @@ void functions::Simulation(int idIteration, string file){
         for(int i = 0; i < SIZE_POPULATION; i++){
             cout << "Executando a simulação no indivíduo " << i << " da iteração " << idIteration << endl;
             system(Command("mpirun -np 4 flow ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DATA >> out.txt"));
-            system(Command("python3 ../Output/"+to_string(idIteration)+"/summaryplot.py WOPR:PROD WGPR:PROD ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DATA >> out.txt"));
+            system(Command("python3 ../Output/"+to_string(idIteration)+"/summaryplot.py WOPR:PROD WWPR:PROD WGPR:PROD ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DATA >> out.txt"));
             system(Command("mv WOPR:PROD.txt ../Output/"+to_string(idIteration)+"/oleo/"+to_string(i)+".txt"));
-            system(Command("mv WGPR:PROD.txt ../Output/"+to_string(idIteration)+"/agua/"+to_string(i)+".txt"));
+            system(Command("mv WWPR:PROD.txt ../Output/"+to_string(idIteration)+"/agua/"+to_string(i)+".txt"));
+            system(Command("mv WGPR:PROD.txt ../Output/"+to_string(idIteration)+"/gas/"+to_string(i)+".txt"));
             system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DBG"));
             system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".EGRID"));
             system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".INFOSTEP"));
@@ -23,9 +24,10 @@ void functions::Simulation(int idIteration, string file){
         for(int i = SIZE_POPULATION; i < (SIZE_POPULATION + ((SIZE_POPULATION * CROSSOVER_RATE) / 100)); i++){
             cout << "Executando a simulação no indivíduo " << i << " da iteração " << idIteration << endl;
             system(Command("mpirun -np 4 flow ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DATA >> out.txt"));
-            system(Command("python3 ../Output/"+to_string(idIteration)+"/summaryplot.py WOPR:PROD WGPR:PROD ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DATA >> out.txt"));
+            system(Command("python3 ../Output/"+to_string(idIteration)+"/summaryplot.py WOPR:PROD WWPR:PROD WGPR:PROD ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DATA >> out.txt"));
             system(Command("mv WOPR:PROD.txt ../Output/"+to_string(idIteration)+"/oleo/"+to_string(i)+".txt"));
-            system(Command("mv WGPR:PROD.txt ../Output/"+to_string(idIteration)+"/agua/"+to_string(i)+".txt"));
+            system(Command("mv WWPR:PROD.txt ../Output/"+to_string(idIteration)+"/agua/"+to_string(i)+".txt"));
+            system(Command("mv WGPR:PROD.txt ../Output/"+to_string(idIteration)+"/gas/"+to_string(i)+".txt"));
             system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DBG"));
             system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".EGRID"));
             system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".INFOSTEP"));
@@ -108,15 +110,17 @@ string functions::ReadFileInput(string file){
     return content;
 }
 
-result* functions::ConvertStringInputToDoubleResult(string water, string oil){
+result* functions::ConvertStringInputToDoubleResult(string water, string oil, string gas){
     vector<string> waterSplit{split(water, ' ')};
     vector<string> oilSplit{split(oil, ' ')};
+    vector<string> gasSplit{split(gas, ' ')};
 
     result* results = new result[water.size()];
 
     for(int i = 0; i < waterSplit.size(); i++){
         results[i].water = stod(waterSplit[i]);
         results[i].oil = stod(oilSplit[i]);
+        results[i].gas = stod(gasSplit[i]);
     }
 
     return results;
@@ -135,8 +139,9 @@ void functions::CreateResultDir(int idIteration){
 
     if(dp == NULL){;
         system(Command("mkdir ../Output/"+to_string(idIteration)));
-        system(Command("mkdir ../Output/"+to_string(idIteration)+"/agua"));
         system(Command("mkdir ../Output/"+to_string(idIteration)+"/oleo"));
+        system(Command("mkdir ../Output/"+to_string(idIteration)+"/agua"));
+        system(Command("mkdir ../Output/"+to_string(idIteration)+"/gas"));
     }else{
         const char* rm = Command("rm -f ../Output/"+to_string(idIteration)+"/*");
         system(rm);
@@ -207,15 +212,17 @@ mutationValue functions::RandMutationValue(individual children, int gene, bool s
     return newValue;
 }
 
-double functions::activationFunction(string waterOutputResult, string oilOutputResult, result* results, int idIteration, int iterator){
+double functions::activationFunction(string waterOutputResult, string oilOutputResult, string gasOutputResult, 
+result* results, int idIteration, int iterator){
     double rank;
 
     string waterResult = ReadFileInput(waterOutputResult);
     string oilResult = ReadFileInput(oilOutputResult);
+    string gasResult = ReadFileInput(gasOutputResult);
 
     result* simulateResults;
 
-    simulateResults = ConvertStringInputToDoubleResult(waterResult, oilResult);
+    simulateResults = ConvertStringInputToDoubleResult(waterResult, oilResult, gasResult);
 
     for(int i = 0; i < N_METRICS; i++){
         if(i == 0){
@@ -224,14 +231,22 @@ double functions::activationFunction(string waterOutputResult, string oilOutputR
             }
             rank = rank / (sizeof simulateResults/sizeof simulateResults[0].water) * 100;
             rank = rank * WATER_WEIGHT;
-        }else{
+        }if (i == 2){
             for(int j = 0; j < (sizeof simulateResults/sizeof simulateResults[0].oil); j++){
                 rank += (results[j].oil - simulateResults[j].oil) / results[j].oil;
             }
             rank = rank / (sizeof simulateResults/sizeof simulateResults[0].oil) * 100;
             rank = rank * OIL_WEIGHT;
+        }else{
+            for(int j = 0; j < (sizeof simulateResults/sizeof simulateResults[0].gas); j++){
+                rank += (results[j].gas - simulateResults[j].gas) / results[j].gas;
+            }
+            rank = rank / (sizeof simulateResults/sizeof simulateResults[0].gas) * 100;
+            rank = rank * GAS_WEIGHT;
         }
     }
+
+    rank = rank / 3;
 
     // for(int i = 0; i < N_METRICS; i++){
     //     if(i == 0){
