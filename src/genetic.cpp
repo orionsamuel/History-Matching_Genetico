@@ -91,14 +91,14 @@ void genetic_algorithm::Fitness(int idIteration){
             string oilOutputResult = "../Output/"+to_string(idIteration)+"/oleo/"+to_string(i)+".txt";
             string waterOutputResult = "../Output/"+to_string(idIteration)+"/agua/"+to_string(i)+".txt";
             string gasOutputResult = "../Output/"+to_string(idIteration)+"/gas/"+to_string(i)+".txt";
-            this->population[i].error_rank = activationFunction(waterOutputResult, oilOutputResult, gasOutputResult ,realResults, idIteration, i);
+            this->population[i].error_rank = activationFunction(waterOutputResult, oilOutputResult, gasOutputResult, realResults, idIteration, i);
         }
     }else{
         for(int i = SIZE_POPULATION; i < (SIZE_POPULATION + this->crossover_rate); i++){
             string oilOutputResult = "../Output/"+to_string(idIteration)+"/oleo/"+to_string(i)+".txt";
             string waterOutputResult = "../Output/"+to_string(idIteration)+"/agua/"+to_string(i)+".txt";
             string gasOutputResult = "../Output/"+to_string(idIteration)+"/gas/"+to_string(i)+".txt";
-            this->population[i].error_rank = activationFunction(waterOutputResult, oilOutputResult, gasOutputResult ,realResults, idIteration, i);
+            this->population[i].error_rank = activationFunction(waterOutputResult, oilOutputResult, gasOutputResult, realResults, idIteration, i);
         }
     }
 }
@@ -194,7 +194,7 @@ void genetic_algorithm::Init(){
     string waterInputResult = ReadFileInput(inputWater);
     string gasInputResult = ReadFileInput(inputGas);
     
-    realResults = ConvertStringInputToDoubleResult(waterInputResult, oilInputResult, gasInputResult);
+    realResults = ConvertStringInputToDoubleResult(waterInputResult, oilInputResult, gasInputResult);    
 
     FirstPopulation();
     int count = 1;

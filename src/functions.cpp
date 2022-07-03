@@ -110,17 +110,19 @@ string functions::ReadFileInput(string file){
     return content;
 }
 
-result* functions::ConvertStringInputToDoubleResult(string water, string oil, string gas){
+vector<result> functions::ConvertStringInputToDoubleResult(string water, string oil, string gas){
     vector<string> waterSplit{split(water, ' ')};
     vector<string> oilSplit{split(oil, ' ')};
     vector<string> gasSplit{split(gas, ' ')};
 
-    result* results = new result[water.size()];
-
+    vector<result> results;
+    
     for(int i = 0; i < waterSplit.size(); i++){
-        results[i].water = stod(waterSplit[i]);
-        results[i].oil = stod(oilSplit[i]);
-        results[i].gas = stod(gasSplit[i]);
+        result partialResult;
+        partialResult.water = stod(waterSplit[i]);
+        partialResult.oil = stod(oilSplit[i]);
+        partialResult.gas = stod(gasSplit[i]);
+        results.push_back(partialResult);
     }
 
     return results;
@@ -212,57 +214,79 @@ mutationValue functions::RandMutationValue(individual children, int gene, bool s
     return newValue;
 }
 
-double functions::activationFunction(string waterOutputResult, string oilOutputResult, string gasOutputResult, 
-result* results, int idIteration, int iterator){
+double functions::activationFunction(string waterOutputResult, string oilOutputResult, string gasOutputResult, vector<result> results, int idIteration, int iterator){
     double rank;
 
     string waterResult = ReadFileInput(waterOutputResult);
     string oilResult = ReadFileInput(oilOutputResult);
     string gasResult = ReadFileInput(gasOutputResult);
 
-    result* simulateResults;
+    vector<result> simulateResults;
 
     simulateResults = ConvertStringInputToDoubleResult(waterResult, oilResult, gasResult);
 
-    for(int i = 0; i < N_METRICS; i++){
-        if(i == 0){
-            for(int j = 0; j < (sizeof simulateResults/sizeof simulateResults[0].water); j++){
-               rank += (results[j].water - simulateResults[j].water) / results[j].water;
-            }
-            rank = rank / (sizeof simulateResults/sizeof simulateResults[0].water) * 100;
-            rank = rank * WATER_WEIGHT;
-        }if (i == 2){
-            for(int j = 0; j < (sizeof simulateResults/sizeof simulateResults[0].oil); j++){
-                rank += (results[j].oil - simulateResults[j].oil) / results[j].oil;
-            }
-            rank = rank / (sizeof simulateResults/sizeof simulateResults[0].oil) * 100;
-            rank = rank * OIL_WEIGHT;
-        }else{
-            for(int j = 0; j < (sizeof simulateResults/sizeof simulateResults[0].gas); j++){
-                rank += (results[j].gas - simulateResults[j].gas) / results[j].gas;
-            }
-            rank = rank / (sizeof simulateResults/sizeof simulateResults[0].gas) * 100;
-            rank = rank * GAS_WEIGHT;
-        }
-    }
-
-    rank = rank / 3;
-
     // for(int i = 0; i < N_METRICS; i++){
     //     if(i == 0){
-    //         for(int j = 0; j < (sizeof simulateResults/sizeof simulateResults[0].water); j++){
-    //             rank += pow((results[j].water - simulateResults[j].water),2);
+    //         for(int j = 0; j < simulateResults.size(); j++){
+    //            if(results[j].water == 0){
+    //                results[j].water = 1;
+    //            }
+    //            if(simulateResults[j].water == 0){
+    //                simulateResults[j].water = 1;
+    //            }
+    //            rank += (results[j].water - simulateResults[j].water) / results[j].water;
     //         }
-    //         rank *= WATER_WEIGHT;
-    //     }else if(i == 1){
-    //         for(int j = 0; j < (sizeof simulateResults/sizeof simulateResults[0].water); j++){
-    //             rank += pow((results[j].oil - simulateResults[j].oil),2);
+    //         rank = rank /  simulateResults.size() * 100;
+    //         rank = rank * WATER_WEIGHT;
+    //     }if (i == 2){
+    //         for(int j = 0; j < simulateResults.size(); j++){
+    //             if(results[j].oil == 0){
+    //                 results[j].oil = 1;
+    //             }
+    //             if(simulateResults[j].oil == 0){
+    //                 simulateResults[j].oil = 1;
+    //             }
+    //             rank += (results[j].oil - simulateResults[j].oil) / results[j].oil;
     //         }
-    //         rank *= OIL_WEIGHT;
-    //     }           
+    //         rank = rank / simulateResults.size() * 100;
+    //         rank = rank * OIL_WEIGHT;
+    //     }else{
+    //         for(int j = 0; j < simulateResults.size(); j++){
+    //             if(results[j].gas == 0){
+    //                 results[j].gas = 1;
+    //             }
+    //             if(simulateResults[j].gas == 0){
+    //                 simulateResults[j].gas = 1;
+    //             }
+    //             rank += (results[j].gas - simulateResults[j].gas) / results[j].gas;
+    //         }
+    //         rank = rank / simulateResults.size() * 100;
+    //         rank = rank * GAS_WEIGHT;
+    //     }
     // }
 
-    // rank = sqrt((rank / ((sizeof simulateResults/sizeof simulateResults[0].water) * 2)));
+    // rank = rank / N_METRICS;
+
+    for(int i = 0; i < N_METRICS; i++){
+        if(i == 0){
+            for(int j = 0; j < simulateResults.size(); j++){
+                rank += pow((results[j].water - simulateResults[j].water),2);
+            }
+            rank *= WATER_WEIGHT;
+        }if(i == 1){
+            for(int j = 0; j < simulateResults.size(); j++){
+                rank += pow((results[j].oil - simulateResults[j].oil),2);
+            }
+            rank *= GAS_WEIGHT;
+        }else if(i == 1){
+            for(int j = 0; j < simulateResults.size(); j++){
+                rank += pow((results[j].gas - simulateResults[j].gas),2);
+            }
+            rank *= OIL_WEIGHT;
+        }           
+    }
+
+    rank = sqrt((rank / (simulateResults.size() * N_METRICS)));
 
     return rank;
 }

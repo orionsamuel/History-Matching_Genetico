@@ -1,5 +1,4 @@
 import os
-import subprocess
 
 def init(n):
     simulation(n)
@@ -9,10 +8,12 @@ def simulation(n):
         os.system("mkdir Output_Simulation")
         os.system("mkdir Output_Simulation/agua")
         os.system("mkdir Output_Simulation/oleo")
+        os.system("mkdir Output_Simulation/gas")
     else:
         os.system("rm -r -f Output_Simulation/*")
         os.system("mkdir Output_Simulation/agua")
         os.system("mkdir Output_Simulation/oleo")
+        os.system("mkdir Output_Simulation/gas")
 
 
     os.system("rm -f output_simulation")
@@ -23,12 +24,14 @@ def simulation(n):
                   +"Output_Simulation/")
         os.system("mpirun -np 4 flow Output_Simulation/"+str(i)+
                   "-SPE1CASE1.DATA")
-        os.system("python3 Output_Simulation/summaryplot.py WOPR:PROD WGPR:PROD "
+        os.system("python3 Output_Simulation/summaryplot.py WOPR:PROD WWPR:PROD WGPR:PROD "
                   +"Output_Simulation/"+str(i)+"-SPE1CASE1.DATA")
         os.system("mv WOPR:PROD.txt Output_Simulation/"
                   "oleo/"+str(i)+".txt")
-        os.system("mv WGPR:PROD.txt Output_Simulation/"
+        os.system("mv WWPR:PROD.txt Output_Simulation/"
                   "agua/"+str(i)+".txt")
+        os.system("mv WGPR:PROD.txt Output_Simulation/"
+                  "gas/"+str(i)+".txt")
         os.system("rm Output_Simulation/"+str(i)+"-SPE1CASE1.DATA.DBG")
         os.system("rm Output_Simulation/"+str(i)+"-SPE1CASE1.DATA.EGRID")
         os.system("rm Output_Simulation/"+str(i)+"-SPE1CASE1.DATA.INFOSTEP")

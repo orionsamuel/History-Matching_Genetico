@@ -20,13 +20,13 @@ class functions{
     const vector<string> split(const string& s, const char& c);
     void CreateOutputDir();
     string ReadFileInput(string file);
-    result* ConvertStringInputToDoubleResult(string water, string oil, string gas);
+    vector<result> ConvertStringInputToDoubleResult(string water, string oil, string gas);
     const char* Command(string inputCommand);
     void CreateResultDir(int idIteration);
     void WriteSimulationFile(int idIteration, int interator, string inputFile, string file, vector<individual> population);
     void WriteErrorFile(int idIteration, vector<individual> population);
     mutationValue RandMutationValue(individual children, int gene, bool soma);
-    double activationFunction(string waterResult, string oilResult, string gasResult, result* results, int idIteration, int iterator);
+    double activationFunction(string waterResult, string oilResult, string gasResult, vector<result> results, int idIteration, int iterator);
 
     static bool Compare(const individual n, const individual m){
         return n.error_rank < m.error_rank;
