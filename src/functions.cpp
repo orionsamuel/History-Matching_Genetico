@@ -225,48 +225,6 @@ double functions::activationFunction(string waterOutputResult, string oilOutputR
 
     simulateResults = ConvertStringInputToDoubleResult(waterResult, oilResult, gasResult);
 
-    // for(int i = 0; i < N_METRICS; i++){
-    //     if(i == 0){
-    //         for(int j = 0; j < simulateResults.size(); j++){
-    //            if(results[j].water == 0){
-    //                results[j].water = 1;
-    //            }
-    //            if(simulateResults[j].water == 0){
-    //                simulateResults[j].water = 1;
-    //            }
-    //            rank += (results[j].water - simulateResults[j].water) / results[j].water;
-    //         }
-    //         rank = rank /  simulateResults.size() * 100;
-    //         rank = rank * WATER_WEIGHT;
-    //     }if (i == 2){
-    //         for(int j = 0; j < simulateResults.size(); j++){
-    //             if(results[j].oil == 0){
-    //                 results[j].oil = 1;
-    //             }
-    //             if(simulateResults[j].oil == 0){
-    //                 simulateResults[j].oil = 1;
-    //             }
-    //             rank += (results[j].oil - simulateResults[j].oil) / results[j].oil;
-    //         }
-    //         rank = rank / simulateResults.size() * 100;
-    //         rank = rank * OIL_WEIGHT;
-    //     }else{
-    //         for(int j = 0; j < simulateResults.size(); j++){
-    //             if(results[j].gas == 0){
-    //                 results[j].gas = 1;
-    //             }
-    //             if(simulateResults[j].gas == 0){
-    //                 simulateResults[j].gas = 1;
-    //             }
-    //             rank += (results[j].gas - simulateResults[j].gas) / results[j].gas;
-    //         }
-    //         rank = rank / simulateResults.size() * 100;
-    //         rank = rank * GAS_WEIGHT;
-    //     }
-    // }
-
-    // rank = rank / N_METRICS;
-
     for(int i = 0; i < N_METRICS; i++){
         if(i == 0){
             for(int j = 0; j < simulateResults.size(); j++){

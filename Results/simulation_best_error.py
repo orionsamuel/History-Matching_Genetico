@@ -32,14 +32,14 @@ def simulation(n):
                   "agua/"+str(i)+".txt")
         os.system("mv WGPR:PROD.txt Output_Simulation/"
                   "gas/"+str(i)+".txt")
-        os.system("rm Output_Simulation/"+str(i)+"-SPE1CASE1.DATA.DBG")
-        os.system("rm Output_Simulation/"+str(i)+"-SPE1CASE1.DATA.EGRID")
-        os.system("rm Output_Simulation/"+str(i)+"-SPE1CASE1.DATA.INFOSTEP")
-        os.system("rm Output_Simulation/"+str(i)+"-SPE1CASE1.DATA.INIT")
-        os.system("rm Output_Simulation/"+str(i)+"-SPE1CASE1.DATA.PRT")
-        os.system("rm Output_Simulation/"+str(i)+"-SPE1CASE1.DATA.SMSPEC")
-        os.system("rm Output_Simulation/"+str(i)+"-SPE1CASE1.DATA.UNRST")
-        os.system("rm Output_Simulation/"+str(i)+"-SPE1CASE1.DATA.UNSMRY")
+        os.system("rm Output_Simulation/"+str(i)+"-SPE1CASE1.DBG")
+        os.system("rm Output_Simulation/"+str(i)+"-SPE1CASE1.EGRID")
+        os.system("rm Output_Simulation/"+str(i)+"-SPE1CASE1.INFOSTEP")
+        os.system("rm Output_Simulation/"+str(i)+"-SPE1CASE1.INIT")
+        os.system("rm Output_Simulation/"+str(i)+"-SPE1CASE1.PRT")
+        os.system("rm Output_Simulation/"+str(i)+"-SPE1CASE1.SMSPEC")
+        os.system("rm Output_Simulation/"+str(i)+"-SPE1CASE1.UNRST")
+        os.system("rm Output_Simulation/"+str(i)+"-SPE1CASE1.UNSMRY")
 
     os.system("rm Output_Simulation/summaryplot.py ")
 
