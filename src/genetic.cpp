@@ -50,8 +50,7 @@ void genetic_algorithm::FirstPopulation(){
     for(int i = 0; i < SIZE_POPULATION; i++){
         WriteSimulationFile(0, i, simulationFile, fileName, population);
     }
-
-    
+      
 }
 
 void genetic_algorithm::OtherPopulations(int idIteration){

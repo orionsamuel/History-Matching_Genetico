@@ -6,7 +6,7 @@ void functions::Simulation(int idIteration, string file){
     if(idIteration == 0){
         for(int i = 0; i < SIZE_POPULATION; i++){
             cout << "Executando a simulação no indivíduo " << i << " da iteração " << idIteration << endl;
-            system(Command("mpirun -np 4 flow ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DATA >> out.txt"));
+            system(Command("flow ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DATA >> out.txt"));
             system(Command("python3 ../Output/"+to_string(idIteration)+"/summaryplot.py WOPR:PROD WWPR:PROD WGPR:PROD ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DATA >> out.txt"));
             system(Command("mv WOPR:PROD.txt ../Output/"+to_string(idIteration)+"/oleo/"+to_string(i)+".txt"));
             system(Command("mv WWPR:PROD.txt ../Output/"+to_string(idIteration)+"/agua/"+to_string(i)+".txt"));
@@ -23,7 +23,7 @@ void functions::Simulation(int idIteration, string file){
     }else{
         for(int i = SIZE_POPULATION; i < (SIZE_POPULATION + ((SIZE_POPULATION * CROSSOVER_RATE) / 100)); i++){
             cout << "Executando a simulação no indivíduo " << i << " da iteração " << idIteration << endl;
-            system(Command("mpirun -np 4 flow ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DATA >> out.txt"));
+            system(Command("flow ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DATA >> out.txt"));
             system(Command("python3 ../Output/"+to_string(idIteration)+"/summaryplot.py WOPR:PROD WWPR:PROD WGPR:PROD ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DATA >> out.txt"));
             system(Command("mv WOPR:PROD.txt ../Output/"+to_string(idIteration)+"/oleo/"+to_string(i)+".txt"));
             system(Command("mv WWPR:PROD.txt ../Output/"+to_string(idIteration)+"/agua/"+to_string(i)+".txt"));
@@ -235,12 +235,12 @@ double functions::activationFunction(string waterOutputResult, string oilOutputR
             for(int j = 0; j < simulateResults.size(); j++){
                 rank += pow((results[j].oil - simulateResults[j].oil),2);
             }
-            rank *= GAS_WEIGHT;
+            rank *= OIL_WEIGHT;
         }else if(i == 1){
             for(int j = 0; j < simulateResults.size(); j++){
                 rank += pow((results[j].gas - simulateResults[j].gas),2);
             }
-            rank *= OIL_WEIGHT;
+            rank *= GAS_WEIGHT;
         }           
     }
 

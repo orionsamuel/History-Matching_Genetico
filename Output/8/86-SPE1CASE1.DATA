@@ -90,20 +90,20 @@ TOPS
 
 PORO
 -- Constant porosity of 0.3 throughout all 300 grid cells
-    300*0.25 /
+    300*0.21 /
 
 PERMX
 -- The layers have perm. 500mD, 50mD and 200mD, respectively.
-    100*374.85 100*190.88 100*122.41 /
+    100*279.39 100*500 100*145.54 /
 
 PERMY
 -- Equal to PERMX
-    100*433.3 100*196.54 100*309.39 /
+    100*393.59 100*234.09 100*183.26 /
 
 PERMZ
 -- Cannot find perm. in z-direction in Odeh's paper
 -- For the time being, we will assume PERMZ equal to PERMX and PERMY:
-    100*99.01 100*347.51 100*128.07 /
+    100*232.49 100*147 100*124.21 /
 ECHO
 
 PROPS
