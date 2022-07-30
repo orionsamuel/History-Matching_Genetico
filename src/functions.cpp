@@ -7,14 +7,27 @@ void functions::Simulation(int idIteration, string file){
         for(int i = 0; i < SIZE_POPULATION; i++){
             cout << "Executando a simulação no indivíduo " << i << " da iteração " << idIteration << endl;
             system(Command("flow ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DATA >> out.txt"));
-            system(Command("python3 ../Output/"+to_string(idIteration)+"/summaryplot.py WOPR:PROD WWPR:PROD WGPR:PROD ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DATA >> out.txt"));
-            system(Command("mv WOPR:PROD.txt ../Output/"+to_string(idIteration)+"/oleo/"+to_string(i)+".txt"));
-            system(Command("mv WWPR:PROD.txt ../Output/"+to_string(idIteration)+"/agua/"+to_string(i)+".txt"));
-            system(Command("mv WGPR:PROD.txt ../Output/"+to_string(idIteration)+"/gas/"+to_string(i)+".txt"));
+            system(Command("python3 ../Output/"+to_string(idIteration)+"/summaryplot.py WWPR:PRODU2 WWPR:PRODU3 WWPR:PRODU4 WWPR:PRODU5 WWPR:PRODU6 WWPR:PRODU7"+ 
+            " WWPR:PRODU8 WWPR:PRODU9 WWPR:PRODU10 WWPR:PRODU11 WWPR:PRODU12 WWPR:PRODU12 WWPR:PRODU13 WWPR:PRODU14 WWPR:PRODU15 WWPR:PRODU16 WWPR:PRODU17 WWPR:PRODU18"+
+            " WWPR:PRODU19 WWPR:PRODU20 WWPR:PRODU21 WWPR:PRODU22 WWPR:PRODU23 WWPR:PRODU24 WWPR:PRODU25 WWPR:PRODU26 ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DATA >> out.txt"));
+            system(Command("python3 ../Output/"+to_string(idIteration)+"/summaryplot.py WOPR:PRODU2 WOPR:PRODU3 WOPR:PRODU4 WOPR:PRODU5 WOPR:PRODU6 WOPR:PRODU7"+ 
+            " WOPR:PRODU8 WOPR:PRODU9 WOPR:PRODU10 WOPR:PRODU11 WOPR:PRODU12 WOPR:PRODU12 WOPR:PRODU13 WOPR:PRODU14 WOPR:PRODU15 WOPR:PRODU16 WOPR:PRODU17 WOPR:PRODU18"+
+            " WOPR:PRODU19 WOPR:PRODU20 WOPR:PRODU21 WOPR:PRODU22 WOPR:PRODU23 WOPR:PRODU24 WOPR:PRODU25 WOPR:PRODU26 ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DATA >> out.txt"));
+            system(Command("python3 ../Output/"+to_string(idIteration)+"/summaryplot.py WGPR:PRODU2 WGPR:PRODU3 WGPR:PRODU4 WGPR:PRODU5 WGPR:PRODU6 WGPR:PRODU7"+ 
+            " WGPR:PRODU8 WGPR:PRODU9 WGPR:PRODU10 WGPR:PRODU11 WGPR:PRODU12 WGPR:PRODU12 WGPR:PRODU13 WGPR:PRODU14 WGPR:PRODU15 WGPR:PRODU16 WGPR:PRODU17 WGPR:PRODU18"+
+            " WGPR:PRODU19 WGPR:PRODU20 WGPR:PRODU21 WGPR:PRODU22 WGPR:PRODU23 WGPR:PRODU24 WGPR:PRODU25 WGPR:PRODU26 ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DATA >> out.txt"));
+            for(int j = 2; j < 27; j++){
+                system(Command("mv WWPR:PRODU"+to_string(j)+".txt ../Output/"+to_string(idIteration)+"/agua/"+to_string(i)+"-agua_"+to_string(j-1)+".txt"));
+            }
+            for(int j = 2; j < 27; j++){
+                system(Command("mv WOPR:PRODU"+to_string(j)+".txt ../Output/"+to_string(idIteration)+"/oleo/"+to_string(i)+"-oleo_"+to_string(j-1)+".txt"));
+            }
+            for(int j = 2; j < 27; j++){
+                system(Command("mv WGPR:PRODU"+to_string(j)+".txt ../Output/"+to_string(idIteration)+"/gas/"+to_string(i)+"-gas_"+to_string(j-1)+".txt"));
+            }
             system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DBG"));
             system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".EGRID"));
             system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".INFOSTEP"));
-            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".INIT"));
             system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".PRT"));
             system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".SMSPEC"));
             system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".UNRST"));
@@ -24,14 +37,27 @@ void functions::Simulation(int idIteration, string file){
         for(int i = SIZE_POPULATION; i < (SIZE_POPULATION + ((SIZE_POPULATION * CROSSOVER_RATE) / 100)); i++){
             cout << "Executando a simulação no indivíduo " << i << " da iteração " << idIteration << endl;
             system(Command("flow ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DATA >> out.txt"));
-            system(Command("python3 ../Output/"+to_string(idIteration)+"/summaryplot.py WOPR:PROD WWPR:PROD WGPR:PROD ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DATA >> out.txt"));
-            system(Command("mv WOPR:PROD.txt ../Output/"+to_string(idIteration)+"/oleo/"+to_string(i)+".txt"));
-            system(Command("mv WWPR:PROD.txt ../Output/"+to_string(idIteration)+"/agua/"+to_string(i)+".txt"));
-            system(Command("mv WGPR:PROD.txt ../Output/"+to_string(idIteration)+"/gas/"+to_string(i)+".txt"));
+            system(Command("python3 ../Output/"+to_string(idIteration)+"/summaryplot.py WWPR:PRODU2 WWPR:PRODU3 WWPR:PRODU4 WWPR:PRODU5 WWPR:PRODU6 WWPR:PRODU7"+ 
+            " WWPR:PRODU8 WWPR:PRODU9 WWPR:PRODU10 WWPR:PRODU11 WWPR:PRODU12 WWPR:PRODU12 WWPR:PRODU13 WWPR:PRODU14 WWPR:PRODU15 WWPR:PRODU16 WWPR:PRODU17 WWPR:PRODU18"+
+            " WWPR:PRODU19 WWPR:PRODU20 WWPR:PRODU21 WWPR:PRODU22 WWPR:PRODU23 WWPR:PRODU24 WWPR:PRODU25 WWPR:PRODU26 ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DATA >> out.txt"));
+            system(Command("python3 ../Output/"+to_string(idIteration)+"/summaryplot.py WOPR:PRODU2 WOPR:PRODU3 WOPR:PRODU4 WOPR:PRODU5 WOPR:PRODU6 WOPR:PRODU7"+ 
+            " WOPR:PRODU8 WOPR:PRODU9 WOPR:PRODU10 WOPR:PRODU11 WOPR:PRODU12 WOPR:PRODU12 WOPR:PRODU13 WOPR:PRODU14 WOPR:PRODU15 WOPR:PRODU16 WOPR:PRODU17 WOPR:PRODU18"+
+            " WOPR:PRODU19 WOPR:PRODU20 WOPR:PRODU21 WOPR:PRODU22 WOPR:PRODU23 WOPR:PRODU24 WOPR:PRODU25 WOPR:PRODU26 ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DATA >> out.txt"));
+            system(Command("python3 ../Output/"+to_string(idIteration)+"/summaryplot.py WGPR:PRODU2 WGPR:PRODU3 WGPR:PRODU4 WGPR:PRODU5 WGPR:PRODU6 WGPR:PRODU7"+ 
+            " WGPR:PRODU8 WGPR:PRODU9 WGPR:PRODU10 WGPR:PRODU11 WGPR:PRODU12 WGPR:PRODU12 WGPR:PRODU13 WGPR:PRODU14 WGPR:PRODU15 WGPR:PRODU16 WGPR:PRODU17 WGPR:PRODU18"+
+            " WGPR:PRODU19 WGPR:PRODU20 WGPR:PRODU21 WGPR:PRODU22 WGPR:PRODU23 WGPR:PRODU24 WGPR:PRODU25 WGPR:PRODU26 ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DATA >> out.txt"));
+            for(int j = 2; j < 27; j++){
+                system(Command("mv WWPR:PRODU"+to_string(j)+".txt ../Output/"+to_string(idIteration)+"/agua/"+to_string(i)+"-agua_"+to_string(j-1)+".txt"));
+            }
+            for(int j = 2; j < 27; j++){
+                system(Command("mv WOPR:PRODU"+to_string(j)+".txt ../Output/"+to_string(idIteration)+"/oleo/"+to_string(i)+"-oleo_"+to_string(j-1)+".txt"));
+            }
+            for(int j = 2; j < 27; j++){
+                system(Command("mv WGPR:PRODU"+to_string(j)+".txt ../Output/"+to_string(idIteration)+"/gas/"+to_string(i)+"-gas_"+to_string(j-1)+".txt"));
+            }
             system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".DBG"));
             system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".EGRID"));
             system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".INFOSTEP"));
-            system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".INIT"));
             system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".PRT"));
             system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".SMSPEC"));
             system(Command("rm ../Output/"+to_string(idIteration)+"/"+to_string(i)+"-"+file+".UNRST"));
@@ -94,18 +120,18 @@ void functions::CreateOutputDir(){
     }
 }
 
-string functions::ReadFileInput(string file){
-    ifstream fileStream(file, ios::in);
-    
+string functions::ReadFileInput(string file){    
     string line, content;
 
-    while(!fileStream.eof()){
-        getline(fileStream, line);
-        content += line;
-        content += " ";
+    for(int i = 1; i < 26; i++){
+        ifstream fileStream(file+"_"+to_string(i)+".txt", ios::in);
+        while(!fileStream.eof()){
+            getline(fileStream, line);
+            content += line;
+            content += " ";
+        }
+        fileStream.close();
     }
-
-    fileStream.close();
 
     return content;
 }
@@ -151,22 +177,28 @@ void functions::CreateResultDir(int idIteration){
 
 }
 
-void functions::WriteSimulationFile(int idIteration, int iterator, string inputFile, string file, vector<individual> population){
+void functions::WriteSimulationFile(int idIteration, int iterator, string inputFile, string file, string permeabilityFile, vector<individual> population){
     ifstream input(inputFile, ios::in);
+    ifstream inputPermeability("../Input/"+permeabilityFile, ios::in);
+    ofstream outputPermeability("../Output/"+to_string(idIteration)+"/"+to_string(iterator)+"-"+permeabilityFile, ios::out);
     ofstream output("../Output/"+to_string(idIteration)+"/"+to_string(iterator)+"-"+file+".DATA", ios::out);
+
     string line;
     int count = 0;
+    int index = 0;
 
     while(!input.eof()){
         getline(input, line);
-        if(count == 92){
-            output << "    " << TOTAL_CELLS << "*" << population[iterator].porosity << " /"  << endl;
-        }else if(count == 96){
-            output << "    " << "100*" << population[iterator].permeability_x[0] << " 100*" << population[iterator].permeability_x[1] << " 100*" << population[iterator].permeability_x[2] << " /" << endl;
-        }else if(count == 100){
-            output << "    " << "100*" << population[iterator].permeability_y[0] << " 100*" << population[iterator].permeability_y[1] << " 100*" << population[iterator].permeability_y[2] << " /"  << endl;
-        }else if(count == 105){
-            output << "    " << "100*" << population[iterator].permeability_z[0] << " 100*" << population [iterator].permeability_z[1] << " 100*" << population[iterator].permeability_z[2] << " /"  << endl;
+        if(count == 131){
+            output << "    " << to_string(iterator)+"-"+permeabilityFile+" /" << endl;
+        }else if((count > 112) && (count < 128)){
+            if(count == 127){
+                output << "    600*" << population[iterator].porosity[index]  << " /" << endl;
+            index++;
+            }else{
+                output << "    600*" << population[iterator].porosity[index] << endl;
+                index++;
+            }
         }else{
             output << line << endl;
         }
@@ -176,6 +208,37 @@ void functions::WriteSimulationFile(int idIteration, int iterator, string inputF
 
     input.close();
     output.close();
+
+    line = "";
+    count = 0;
+
+    while(!inputPermeability.eof()){
+        getline(inputPermeability, line);
+        if(count < 18){
+            outputPermeability << line  << endl;
+        }
+
+        count++;
+    }
+
+    for(int i = 0; i < TOTAL_CELLS; i++){
+        if(i == (TOTAL_CELLS -1)){
+            outputPermeability << population[iterator].permeability[i] << " /" << endl;
+            outputPermeability << endl;
+            outputPermeability <<  "COPY" << endl;
+            outputPermeability <<  "	PERMX PERMY  /" << endl;
+            outputPermeability <<  "	PERMX PERMZ  /" << endl;
+            outputPermeability <<  "/" << endl;
+            outputPermeability <<  "MULTIPLY" << endl;
+            outputPermeability <<  "	PERMZ 0.01 /" << endl;
+            outputPermeability <<  "/" << endl;
+        }else{
+            outputPermeability << population[iterator].permeability[i] << endl;
+        }
+    }
+
+    inputPermeability.close();
+    outputPermeability.close();
     
 }
 
@@ -189,26 +252,20 @@ void functions::WriteErrorFile(int idIteration, vector<individual> population){
     errorFile.close();
 }
 
-mutationValue functions::RandMutationValue(individual children, int gene, bool soma){
+mutationValue functions::RandMutationValue(individual children, int genePorosity, int genePermeability, bool soma){
     mutationValue newValue;
 
     int percent = rand() % (20-5+1) + 5;
 
-    newValue.porosity = (children.porosity * percent / 100);
-    newValue.permeability_x = (children.permeability_x[gene] * percent / 100);
-    newValue.permeability_y = (children.permeability_y[gene] * percent / 100);
-    newValue.permeability_z = (children.permeability_z[gene] * percent / 100);
+    newValue.porosity = (children.porosity[genePorosity] * percent / 100);
+    newValue.permeability = (children.permeability[genePermeability] * percent / 100);
 
     if(soma){
-        newValue.porosity = min(MAX_POROSITY, (children.porosity + newValue.porosity));
-        newValue.permeability_x = min(MAX_PERMEABILITY, (children.permeability_x[gene] + newValue.permeability_x));
-        newValue.permeability_y = min(MAX_PERMEABILITY, (children.permeability_y[gene] + newValue.permeability_y));
-        newValue.permeability_z = min(MAX_PERMEABILITY, (children.permeability_z[gene] + newValue.permeability_z));
+        newValue.porosity = min(MAX_POROSITY, (children.porosity[genePorosity] + newValue.porosity));
+        newValue.permeability = min(MAX_PERMEABILITY, (children.permeability[genePermeability] + newValue.permeability));
     }else{
-        newValue.porosity = max(MIN_POROSITY, (children.porosity - newValue.porosity));
-        newValue.permeability_x = max(MIN_PERMEABILITY, (children.permeability_x[gene] - newValue.permeability_x));
-        newValue.permeability_y = max(MIN_PERMEABILITY, (children.permeability_y[gene] - newValue.permeability_y));
-        newValue.permeability_z = max(MIN_PERMEABILITY, (children.permeability_z[gene] - newValue.permeability_z));
+        newValue.porosity = max(MIN_POROSITY, (children.porosity[genePorosity] - newValue.porosity));
+        newValue.permeability = max(MIN_PERMEABILITY, (children.permeability[genePermeability] - newValue.permeability));
     }
 
     return newValue;
