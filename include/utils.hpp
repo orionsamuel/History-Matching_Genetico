@@ -9,7 +9,7 @@ const string simulationFile = "../Input/SPE9.DATA";
 const string fileName = "SPE9";
 const string permeabilityFile = "PERMVALUES.DATA";
 
-#define SIZE_POPULATION 200
+#define SIZE_POPULATION 150
 #define N_GENERATIONS 15
 
 #define CROSSOVER_RATE 80
