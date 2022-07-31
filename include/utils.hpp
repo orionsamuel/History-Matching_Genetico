@@ -15,11 +15,11 @@ const string permeabilityFile = "PERMVALUES.DATA";
 #define CROSSOVER_RATE 80
 #define MUTATION_RATE 50
 
-#define MIN_POROSITY 0.1
-#define MAX_POROSITY 0.3
+#define MIN_POROSITY 0.01
+#define MAX_POROSITY 0.2
 
-#define MIN_PERMEABILITY 0.0
-#define MAX_PERMEABILITY 800.0
+#define MIN_PERMEABILITY 50.
+#define MAX_PERMEABILITY 3000.0
 
 #define WATER_WEIGHT 0.2
 #define OIL_WEIGHT 0.5  

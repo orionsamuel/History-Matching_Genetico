@@ -288,12 +288,12 @@ double functions::activationFunction(string waterOutputResult, string oilOutputR
                 rank += pow((results[j].water - simulateResults[j].water),2);
             }
             rank *= WATER_WEIGHT;
-        }if(i == 1){
+        }else if(i == 1){
             for(int j = 0; j < simulateResults.size(); j++){
                 rank += pow((results[j].oil - simulateResults[j].oil),2);
             }
             rank *= OIL_WEIGHT;
-        }else if(i == 1){
+        }else if(i == 2){
             for(int j = 0; j < simulateResults.size(); j++){
                 rank += pow((results[j].gas - simulateResults[j].gas),2);
             }
